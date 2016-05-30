@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ac9c63ef7e248c1a6312b837235c9b6" Name="Diagram1">
+        <EntityTypeShape EntityType="dbConsorcioModel.tbAdmConsorcio" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbAnexoCarta" Width="1.5" PointX="9.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbCartaCredito" Width="1.5" PointX="7.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbComprador" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbFisicaJuridica" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbGrupoConsorcio" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbPropostaCarta" Width="1.5" PointX="7.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbQualificacaoComprador" Width="1.5" PointX="10.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbQualificacaoVendedor" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbStatusCarta" Width="1.5" PointX="5.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbStatusProposta" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbTipoConsorcio" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbUserPassword" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbUsers" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbConsorcioModel.tbVendedor" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <AssociationConnector Association="dbConsorcioModel.fk_admconsorcio_carta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_cartacredito_anexocarta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_cartacredito_proposta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_cartacredito_qualificacaocomprador" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_cartacredito_qualificacaovendedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_statuscarta_carta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_tipoconsorcio_carta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_vendedor_carta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_comprador_proposta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_comprador_qualificacaocomprador" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_comprador_qualificacaovendedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_user_comprador" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_fisjur_user" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_tipo_grupo_consorcio" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_statusproposta_proposta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_vendedor_proposta" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_vendedor_qualificacaocomprador" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_vendedor_qualificacaovendedor" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_user_userpassword" ManuallyRouted="false" />
+        <AssociationConnector Association="dbConsorcioModel.fk_user_venndedor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

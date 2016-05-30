@@ -1,0 +1,1218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbConsorcioModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAdmConsorcio">
+          <Key>
+            <PropertyRef Name="cd_admconsorcio" />
+          </Key>
+          <Property Name="cd_admconsorcio" Type="int" Nullable="false" />
+          <Property Name="nm_admconsorcio" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbAnexoCarta">
+          <Key>
+            <PropertyRef Name="cd_cartacredito" />
+          </Key>
+          <Property Name="id_anexo" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="bigint" Nullable="false" />
+          <Property Name="de_linkanexo" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbCartaCredito">
+          <Key>
+            <PropertyRef Name="cd_cartacredito" />
+          </Key>
+          <Property Name="cd_cartacredito" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cd_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="cd_admconsorcio" Type="int" Nullable="false" />
+          <Property Name="cd_tipoconsorcio" Type="int" Nullable="false" />
+          <Property Name="cd_statuscarta" Type="int" Nullable="false" />
+          <Property Name="de_cidade" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="de_uf" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="nu_valorcredito" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="nu_valorentrada" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="nu_qtd_parcelas" Type="int" Nullable="false" />
+          <Property Name="nu_valorparcela" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="nu_saldocarta" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="de_indexador" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nu_honorarios" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="nu_taxajuros" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbComprador">
+          <Key>
+            <PropertyRef Name="cd_comprador" />
+          </Key>
+          <Property Name="cd_comprador" Type="bigint" Nullable="false" />
+          <Property Name="id_user" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="dt_create" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="nu_qual_positiva" Type="bigint" Nullable="false" />
+          <Property Name="nu_qual_negativa" Type="bigint" Nullable="false" />
+          <Property Name="bt_bloqueado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbFisicaJuridica">
+          <Key>
+            <PropertyRef Name="cd_fisjur" />
+          </Key>
+          <Property Name="cd_fisjur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="de_fisjur" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbGrupoConsorcio">
+          <Key>
+            <PropertyRef Name="cd_grupoconsorcio" />
+          </Key>
+          <Property Name="cd_grupoconsorcio" Type="int" Nullable="false" />
+          <Property Name="de_grupoconsorcio" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPropostaCarta">
+          <Key>
+            <PropertyRef Name="cd_propostacarta" />
+          </Key>
+          <Property Name="cd_propostacarta" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="bigint" Nullable="false" />
+          <Property Name="cd_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="cd_comprador" Type="bigint" Nullable="false" />
+          <Property Name="cd_statusproposta" Type="int" Nullable="false" />
+          <Property Name="de_mensagemproposta" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbQualificacaoComprador">
+          <Key>
+            <PropertyRef Name="cd_qualcomprador" />
+          </Key>
+          <Property Name="cd_qualcomprador" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cd_comprador" Type="bigint" Nullable="false" />
+          <Property Name="cd_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="bigint" Nullable="false" />
+          <Property Name="nu_pontuacao" Type="int" Nullable="false" />
+          <Property Name="de_observacaovendedor" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbQualificacaoVendedor">
+          <Key>
+            <PropertyRef Name="cd_qualvendedor" />
+          </Key>
+          <Property Name="cd_qualvendedor" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cd_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="cd_comprador" Type="bigint" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="bigint" Nullable="false" />
+          <Property Name="nu_pontuacao" Type="int" Nullable="false" />
+          <Property Name="de_observacaocomprador" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbStatusCarta">
+          <Key>
+            <PropertyRef Name="cd_statuscarta" />
+          </Key>
+          <Property Name="cd_statuscarta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="de_statuscarta" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbStatusProposta">
+          <Key>
+            <PropertyRef Name="cd_statusproposta" />
+          </Key>
+          <Property Name="cd_statusproposta" Type="int" Nullable="false" />
+          <Property Name="de_statusproposta" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbTipoConsorcio">
+          <Key>
+            <PropertyRef Name="cd_tipoconsorcio" />
+          </Key>
+          <Property Name="cd_tipoconsorcio" Type="int" Nullable="false" />
+          <Property Name="de_tipoconsorcio" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="cd_grupoconsorcio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbUserPassword">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="de_password" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="dt_create" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="dt_update" Type="datetime" Precision="0" />
+          <Property Name="bt_bloqueio" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbUsers">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="nm_user" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="nm_apelido" Type="varchar" MaxLength="150" />
+          <Property Name="cd_fisjur" Type="int" Nullable="false" />
+          <Property Name="cd_cpf" Type="varchar" MaxLength="11" />
+          <Property Name="cd_cnpj" Type="varchar" MaxLength="14" />
+          <Property Name="cd_ie" Type="varchar" MaxLength="20" />
+          <Property Name="bit_bloqueio" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbVendedor">
+          <Key>
+            <PropertyRef Name="cd_vendedor" />
+          </Key>
+          <Property Name="cd_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="id_user" Type="varchar" MaxLength="36" Nullable="false" />
+          <Property Name="dt_create" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="nu_qual_positiva" Type="bigint" Nullable="false" />
+          <Property Name="nu_qual_negativa" Type="bigint" Nullable="false" />
+          <Property Name="bt_bloqueado" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_admconsorcio_carta">
+          <End Role="tbAdmConsorcio" Type="Self.tbAdmConsorcio" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAdmConsorcio">
+              <PropertyRef Name="cd_admconsorcio" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_admconsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_anexocarta">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbAnexoCarta" Type="Self.tbAnexoCarta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbAnexoCarta">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_proposta">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_qualificacaocomprador">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbQualificacaoComprador" Type="Self.tbQualificacaoComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbQualificacaoComprador">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_qualificacaovendedor">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbQualificacaoVendedor" Type="Self.tbQualificacaoVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbQualificacaoVendedor">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprador_proposta">
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_comprador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprador_qualificacaocomprador">
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="1" />
+          <End Role="tbQualificacaoComprador" Type="Self.tbQualificacaoComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Principal>
+            <Dependent Role="tbQualificacaoComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprador_qualificacaovendedor">
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="1" />
+          <End Role="tbQualificacaoVendedor" Type="Self.tbQualificacaoVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Principal>
+            <Dependent Role="tbQualificacaoVendedor">
+              <PropertyRef Name="cd_comprador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_fisjur_user">
+          <End Role="tbFisicaJuridica" Type="Self.tbFisicaJuridica" Multiplicity="1" />
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFisicaJuridica">
+              <PropertyRef Name="cd_fisjur" />
+            </Principal>
+            <Dependent Role="tbUsers">
+              <PropertyRef Name="cd_fisjur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_statuscarta_carta">
+          <End Role="tbStatusCarta" Type="Self.tbStatusCarta" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStatusCarta">
+              <PropertyRef Name="cd_statuscarta" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_statuscarta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_statusproposta_proposta">
+          <End Role="tbStatusProposta" Type="Self.tbStatusProposta" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStatusProposta">
+              <PropertyRef Name="cd_statusproposta" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_statusproposta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_grupo_consorcio">
+          <End Role="tbGrupoConsorcio" Type="Self.tbGrupoConsorcio" Multiplicity="1" />
+          <End Role="tbTipoConsorcio" Type="Self.tbTipoConsorcio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbGrupoConsorcio">
+              <PropertyRef Name="cd_grupoconsorcio" />
+            </Principal>
+            <Dependent Role="tbTipoConsorcio">
+              <PropertyRef Name="cd_grupoconsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipoconsorcio_carta">
+          <End Role="tbTipoConsorcio" Type="Self.tbTipoConsorcio" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbTipoConsorcio">
+              <PropertyRef Name="cd_tipoconsorcio" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_tipoconsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_comprador">
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="1" />
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsers">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tbComprador">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_userpassword">
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="1" />
+          <End Role="tbUserPassword" Type="Self.tbUserPassword" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsers">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tbUserPassword">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_venndedor">
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="1" />
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsers">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tbVendedor">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_carta">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_proposta">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_qualificacaocomprador">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbQualificacaoComprador" Type="Self.tbQualificacaoComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbQualificacaoComprador">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_qualificacaovendedor">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbQualificacaoVendedor" Type="Self.tbQualificacaoVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbQualificacaoVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbConsorcioModelStoreContainer">
+          <EntitySet Name="tbAdmConsorcio" EntityType="Self.tbAdmConsorcio" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbAnexoCarta" EntityType="Self.tbAnexoCarta" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbCartaCredito" EntityType="Self.tbCartaCredito" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbComprador" EntityType="Self.tbComprador" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbFisicaJuridica" EntityType="Self.tbFisicaJuridica" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbGrupoConsorcio" EntityType="Self.tbGrupoConsorcio" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbPropostaCarta" EntityType="Self.tbPropostaCarta" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbQualificacaoComprador" EntityType="Self.tbQualificacaoComprador" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbQualificacaoVendedor" EntityType="Self.tbQualificacaoVendedor" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbStatusCarta" EntityType="Self.tbStatusCarta" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbStatusProposta" EntityType="Self.tbStatusProposta" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbTipoConsorcio" EntityType="Self.tbTipoConsorcio" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbUserPassword" EntityType="Self.tbUserPassword" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbUsers" EntityType="Self.tbUsers" Schema="dbConsorcio" store:Type="Tables" />
+          <EntitySet Name="tbVendedor" EntityType="Self.tbVendedor" Schema="dbConsorcio" store:Type="Tables" />
+          <AssociationSet Name="fk_admconsorcio_carta" Association="Self.fk_admconsorcio_carta">
+            <End Role="tbAdmConsorcio" EntitySet="tbAdmConsorcio" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_anexocarta" Association="Self.fk_cartacredito_anexocarta">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbAnexoCarta" EntitySet="tbAnexoCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_proposta" Association="Self.fk_cartacredito_proposta">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_qualificacaocomprador" Association="Self.fk_cartacredito_qualificacaocomprador">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbQualificacaoComprador" EntitySet="tbQualificacaoComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_qualificacaovendedor" Association="Self.fk_cartacredito_qualificacaovendedor">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprador_proposta" Association="Self.fk_comprador_proposta">
+            <End Role="tbComprador" EntitySet="tbComprador" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprador_qualificacaocomprador" Association="Self.fk_comprador_qualificacaocomprador">
+            <End Role="tbComprador" EntitySet="tbComprador" />
+            <End Role="tbQualificacaoComprador" EntitySet="tbQualificacaoComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprador_qualificacaovendedor" Association="Self.fk_comprador_qualificacaovendedor">
+            <End Role="tbComprador" EntitySet="tbComprador" />
+            <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_fisjur_user" Association="Self.fk_fisjur_user">
+            <End Role="tbFisicaJuridica" EntitySet="tbFisicaJuridica" />
+            <End Role="tbUsers" EntitySet="tbUsers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_statuscarta_carta" Association="Self.fk_statuscarta_carta">
+            <End Role="tbStatusCarta" EntitySet="tbStatusCarta" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_statusproposta_proposta" Association="Self.fk_statusproposta_proposta">
+            <End Role="tbStatusProposta" EntitySet="tbStatusProposta" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_grupo_consorcio" Association="Self.fk_tipo_grupo_consorcio">
+            <End Role="tbGrupoConsorcio" EntitySet="tbGrupoConsorcio" />
+            <End Role="tbTipoConsorcio" EntitySet="tbTipoConsorcio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipoconsorcio_carta" Association="Self.fk_tipoconsorcio_carta">
+            <End Role="tbTipoConsorcio" EntitySet="tbTipoConsorcio" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_comprador" Association="Self.fk_user_comprador">
+            <End Role="tbUsers" EntitySet="tbUsers" />
+            <End Role="tbComprador" EntitySet="tbComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_userpassword" Association="Self.fk_user_userpassword">
+            <End Role="tbUsers" EntitySet="tbUsers" />
+            <End Role="tbUserPassword" EntitySet="tbUserPassword" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_venndedor" Association="Self.fk_user_venndedor">
+            <End Role="tbUsers" EntitySet="tbUsers" />
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_carta" Association="Self.fk_vendedor_carta">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_proposta" Association="Self.fk_vendedor_proposta">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_qualificacaocomprador" Association="Self.fk_vendedor_qualificacaocomprador">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbQualificacaoComprador" EntitySet="tbQualificacaoComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_qualificacaovendedor" Association="Self.fk_vendedor_qualificacaovendedor">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbConsorcioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbAdmConsorcio">
+          <Key>
+            <PropertyRef Name="cd_admconsorcio" />
+          </Key>
+          <Property Name="cd_admconsorcio" Type="Int32" Nullable="false" />
+          <Property Name="nm_admconsorcio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_admconsorcio_carta" FromRole="tbAdmConsorcio" ToRole="tbCartaCredito" />
+        </EntityType>
+        <EntityType Name="tbAnexoCarta">
+          <Key>
+            <PropertyRef Name="cd_cartacredito" />
+          </Key>
+          <Property Name="id_anexo" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="Int64" Nullable="false" />
+          <Property Name="de_linkanexo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_cartacredito_anexocarta" FromRole="tbAnexoCarta" ToRole="tbCartaCredito" />
+        </EntityType>
+        <EntityType Name="tbCartaCredito">
+          <Key>
+            <PropertyRef Name="cd_cartacredito" />
+          </Key>
+          <Property Name="cd_cartacredito" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cd_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="cd_admconsorcio" Type="Int32" Nullable="false" />
+          <Property Name="cd_tipoconsorcio" Type="Int32" Nullable="false" />
+          <Property Name="cd_statuscarta" Type="Int32" Nullable="false" />
+          <Property Name="de_cidade" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="de_uf" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nu_valorcredito" Type="Decimal" Nullable="false" />
+          <Property Name="nu_valorentrada" Type="Decimal" Nullable="false" />
+          <Property Name="nu_qtd_parcelas" Type="Int32" Nullable="false" />
+          <Property Name="nu_valorparcela" Type="Decimal" Nullable="false" />
+          <Property Name="nu_saldocarta" Type="Decimal" Nullable="false" />
+          <Property Name="de_indexador" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nu_honorarios" Type="Decimal" Nullable="false" />
+          <Property Name="nu_taxajuros" Type="Decimal" Nullable="false" />
+          <NavigationProperty Name="tbAdmConsorcio" Relationship="Self.fk_admconsorcio_carta" FromRole="tbCartaCredito" ToRole="tbAdmConsorcio" />
+          <NavigationProperty Name="tbAnexoCarta" Relationship="Self.fk_cartacredito_anexocarta" FromRole="tbCartaCredito" ToRole="tbAnexoCarta" />
+          <NavigationProperty Name="tbPropostaCarta" Relationship="Self.fk_cartacredito_proposta" FromRole="tbCartaCredito" ToRole="tbPropostaCarta" />
+          <NavigationProperty Name="tbQualificacaoComprador" Relationship="Self.fk_cartacredito_qualificacaocomprador" FromRole="tbCartaCredito" ToRole="tbQualificacaoComprador" />
+          <NavigationProperty Name="tbQualificacaoVendedor" Relationship="Self.fk_cartacredito_qualificacaovendedor" FromRole="tbCartaCredito" ToRole="tbQualificacaoVendedor" />
+          <NavigationProperty Name="tbStatusCarta" Relationship="Self.fk_statuscarta_carta" FromRole="tbCartaCredito" ToRole="tbStatusCarta" />
+          <NavigationProperty Name="tbTipoConsorcio" Relationship="Self.fk_tipoconsorcio_carta" FromRole="tbCartaCredito" ToRole="tbTipoConsorcio" />
+          <NavigationProperty Name="tbVendedor" Relationship="Self.fk_vendedor_carta" FromRole="tbCartaCredito" ToRole="tbVendedor" />
+        </EntityType>
+        <EntityType Name="tbComprador">
+          <Key>
+            <PropertyRef Name="cd_comprador" />
+          </Key>
+          <Property Name="cd_comprador" Type="Int64" Nullable="false" />
+          <Property Name="id_user" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dt_create" Type="DateTime" Nullable="false" />
+          <Property Name="nu_qual_positiva" Type="Int64" Nullable="false" />
+          <Property Name="nu_qual_negativa" Type="Int64" Nullable="false" />
+          <Property Name="bt_bloqueado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbPropostaCarta" Relationship="Self.fk_comprador_proposta" FromRole="tbComprador" ToRole="tbPropostaCarta" />
+          <NavigationProperty Name="tbQualificacaoComprador" Relationship="Self.fk_comprador_qualificacaocomprador" FromRole="tbComprador" ToRole="tbQualificacaoComprador" />
+          <NavigationProperty Name="tbQualificacaoVendedor" Relationship="Self.fk_comprador_qualificacaovendedor" FromRole="tbComprador" ToRole="tbQualificacaoVendedor" />
+          <NavigationProperty Name="tbUsers" Relationship="Self.fk_user_comprador" FromRole="tbComprador" ToRole="tbUsers" />
+        </EntityType>
+        <EntityType Name="tbFisicaJuridica">
+          <Key>
+            <PropertyRef Name="cd_fisjur" />
+          </Key>
+          <Property Name="cd_fisjur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="de_fisjur" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbUsers" Relationship="Self.fk_fisjur_user" FromRole="tbFisicaJuridica" ToRole="tbUsers" />
+        </EntityType>
+        <EntityType Name="tbGrupoConsorcio">
+          <Key>
+            <PropertyRef Name="cd_grupoconsorcio" />
+          </Key>
+          <Property Name="cd_grupoconsorcio" Type="Int32" Nullable="false" />
+          <Property Name="de_grupoconsorcio" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbTipoConsorcio" Relationship="Self.fk_tipo_grupo_consorcio" FromRole="tbGrupoConsorcio" ToRole="tbTipoConsorcio" />
+        </EntityType>
+        <EntityType Name="tbPropostaCarta">
+          <Key>
+            <PropertyRef Name="cd_propostacarta" />
+          </Key>
+          <Property Name="cd_propostacarta" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cd_cartacredito" Type="Int64" Nullable="false" />
+          <Property Name="cd_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="cd_comprador" Type="Int64" Nullable="false" />
+          <Property Name="cd_statusproposta" Type="Int32" Nullable="false" />
+          <Property Name="de_mensagemproposta" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_cartacredito_proposta" FromRole="tbPropostaCarta" ToRole="tbCartaCredito" />
+          <NavigationProperty Name="tbComprador" Relationship="Self.fk_comprador_proposta" FromRole="tbPropostaCarta" ToRole="tbComprador" />
+          <NavigationProperty Name="tbStatusProposta" Relationship="Self.fk_statusproposta_proposta" FromRole="tbPropostaCarta" ToRole="tbStatusProposta" />
+          <NavigationProperty Name="tbVendedor" Relationship="Self.fk_vendedor_proposta" FromRole="tbPropostaCarta" ToRole="tbVendedor" />
+        </EntityType>
+        <EntityType Name="tbQualificacaoComprador">
+          <Key>
+            <PropertyRef Name="cd_qualcomprador" />
+          </Key>
+          <Property Name="cd_qualcomprador" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cd_comprador" Type="Int64" Nullable="false" />
+          <Property Name="cd_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="Int64" Nullable="false" />
+          <Property Name="nu_pontuacao" Type="Int32" Nullable="false" />
+          <Property Name="de_observacaovendedor" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_cartacredito_qualificacaocomprador" FromRole="tbQualificacaoComprador" ToRole="tbCartaCredito" />
+          <NavigationProperty Name="tbComprador" Relationship="Self.fk_comprador_qualificacaocomprador" FromRole="tbQualificacaoComprador" ToRole="tbComprador" />
+          <NavigationProperty Name="tbVendedor" Relationship="Self.fk_vendedor_qualificacaocomprador" FromRole="tbQualificacaoComprador" ToRole="tbVendedor" />
+        </EntityType>
+        <EntityType Name="tbQualificacaoVendedor">
+          <Key>
+            <PropertyRef Name="cd_qualvendedor" />
+          </Key>
+          <Property Name="cd_qualvendedor" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cd_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="cd_comprador" Type="Int64" Nullable="false" />
+          <Property Name="cd_cartacredito" Type="Int64" Nullable="false" />
+          <Property Name="nu_pontuacao" Type="Int32" Nullable="false" />
+          <Property Name="de_observacaocomprador" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_cartacredito_qualificacaovendedor" FromRole="tbQualificacaoVendedor" ToRole="tbCartaCredito" />
+          <NavigationProperty Name="tbComprador" Relationship="Self.fk_comprador_qualificacaovendedor" FromRole="tbQualificacaoVendedor" ToRole="tbComprador" />
+          <NavigationProperty Name="tbVendedor" Relationship="Self.fk_vendedor_qualificacaovendedor" FromRole="tbQualificacaoVendedor" ToRole="tbVendedor" />
+        </EntityType>
+        <EntityType Name="tbStatusCarta">
+          <Key>
+            <PropertyRef Name="cd_statuscarta" />
+          </Key>
+          <Property Name="cd_statuscarta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="de_statuscarta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_statuscarta_carta" FromRole="tbStatusCarta" ToRole="tbCartaCredito" />
+        </EntityType>
+        <EntityType Name="tbStatusProposta">
+          <Key>
+            <PropertyRef Name="cd_statusproposta" />
+          </Key>
+          <Property Name="cd_statusproposta" Type="Int32" Nullable="false" />
+          <Property Name="de_statusproposta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbPropostaCarta" Relationship="Self.fk_statusproposta_proposta" FromRole="tbStatusProposta" ToRole="tbPropostaCarta" />
+        </EntityType>
+        <EntityType Name="tbTipoConsorcio">
+          <Key>
+            <PropertyRef Name="cd_tipoconsorcio" />
+          </Key>
+          <Property Name="cd_tipoconsorcio" Type="Int32" Nullable="false" />
+          <Property Name="de_tipoconsorcio" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cd_grupoconsorcio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_tipoconsorcio_carta" FromRole="tbTipoConsorcio" ToRole="tbCartaCredito" />
+          <NavigationProperty Name="tbGrupoConsorcio" Relationship="Self.fk_tipo_grupo_consorcio" FromRole="tbTipoConsorcio" ToRole="tbGrupoConsorcio" />
+        </EntityType>
+        <EntityType Name="tbUserPassword">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="de_password" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dt_create" Type="DateTime" Nullable="false" />
+          <Property Name="dt_update" Type="DateTime" />
+          <Property Name="bt_bloqueio" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbUsers" Relationship="Self.fk_user_userpassword" FromRole="tbUserPassword" ToRole="tbUsers" />
+        </EntityType>
+        <EntityType Name="tbUsers">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nm_user" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nm_apelido" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cd_fisjur" Type="Int32" Nullable="false" />
+          <Property Name="cd_cpf" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="cd_cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="cd_ie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="bit_bloqueio" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbComprador" Relationship="Self.fk_user_comprador" FromRole="tbUsers" ToRole="tbComprador" />
+          <NavigationProperty Name="tbFisicaJuridica" Relationship="Self.fk_fisjur_user" FromRole="tbUsers" ToRole="tbFisicaJuridica" />
+          <NavigationProperty Name="tbUserPassword" Relationship="Self.fk_user_userpassword" FromRole="tbUsers" ToRole="tbUserPassword" />
+          <NavigationProperty Name="tbVendedor" Relationship="Self.fk_user_venndedor" FromRole="tbUsers" ToRole="tbVendedor" />
+        </EntityType>
+        <EntityType Name="tbVendedor">
+          <Key>
+            <PropertyRef Name="cd_vendedor" />
+          </Key>
+          <Property Name="cd_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="id_user" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dt_create" Type="DateTime" Nullable="false" />
+          <Property Name="nu_qual_positiva" Type="Int64" Nullable="false" />
+          <Property Name="nu_qual_negativa" Type="Int64" Nullable="false" />
+          <Property Name="bt_bloqueado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tbCartaCredito" Relationship="Self.fk_vendedor_carta" FromRole="tbVendedor" ToRole="tbCartaCredito" />
+          <NavigationProperty Name="tbPropostaCarta" Relationship="Self.fk_vendedor_proposta" FromRole="tbVendedor" ToRole="tbPropostaCarta" />
+          <NavigationProperty Name="tbQualificacaoComprador" Relationship="Self.fk_vendedor_qualificacaocomprador" FromRole="tbVendedor" ToRole="tbQualificacaoComprador" />
+          <NavigationProperty Name="tbQualificacaoVendedor" Relationship="Self.fk_vendedor_qualificacaovendedor" FromRole="tbVendedor" ToRole="tbQualificacaoVendedor" />
+          <NavigationProperty Name="tbUsers" Relationship="Self.fk_user_venndedor" FromRole="tbVendedor" ToRole="tbUsers" />
+        </EntityType>
+        <Association Name="fk_admconsorcio_carta">
+          <End Role="tbAdmConsorcio" Type="Self.tbAdmConsorcio" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAdmConsorcio">
+              <PropertyRef Name="cd_admconsorcio" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_admconsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_anexocarta">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbAnexoCarta" Type="Self.tbAnexoCarta" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbAnexoCarta">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_proposta">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_qualificacaocomprador">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbQualificacaoComprador" Type="Self.tbQualificacaoComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbQualificacaoComprador">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cartacredito_qualificacaovendedor">
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="1" />
+          <End Role="tbQualificacaoVendedor" Type="Self.tbQualificacaoVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCartaCredito">
+              <PropertyRef Name="cd_cartacredito" />
+            </Principal>
+            <Dependent Role="tbQualificacaoVendedor">
+              <PropertyRef Name="cd_cartacredito" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_statuscarta_carta">
+          <End Role="tbStatusCarta" Type="Self.tbStatusCarta" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStatusCarta">
+              <PropertyRef Name="cd_statuscarta" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_statuscarta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipoconsorcio_carta">
+          <End Role="tbTipoConsorcio" Type="Self.tbTipoConsorcio" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbTipoConsorcio">
+              <PropertyRef Name="cd_tipoconsorcio" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_tipoconsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_carta">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbCartaCredito" Type="Self.tbCartaCredito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbCartaCredito">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprador_proposta">
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_comprador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprador_qualificacaocomprador">
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="1" />
+          <End Role="tbQualificacaoComprador" Type="Self.tbQualificacaoComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Principal>
+            <Dependent Role="tbQualificacaoComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comprador_qualificacaovendedor">
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="1" />
+          <End Role="tbQualificacaoVendedor" Type="Self.tbQualificacaoVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbComprador">
+              <PropertyRef Name="cd_comprador" />
+            </Principal>
+            <Dependent Role="tbQualificacaoVendedor">
+              <PropertyRef Name="cd_comprador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_comprador">
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="1" />
+          <End Role="tbComprador" Type="Self.tbComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsers">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tbComprador">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_fisjur_user">
+          <End Role="tbFisicaJuridica" Type="Self.tbFisicaJuridica" Multiplicity="1" />
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFisicaJuridica">
+              <PropertyRef Name="cd_fisjur" />
+            </Principal>
+            <Dependent Role="tbUsers">
+              <PropertyRef Name="cd_fisjur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_grupo_consorcio">
+          <End Role="tbGrupoConsorcio" Type="Self.tbGrupoConsorcio" Multiplicity="1" />
+          <End Role="tbTipoConsorcio" Type="Self.tbTipoConsorcio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbGrupoConsorcio">
+              <PropertyRef Name="cd_grupoconsorcio" />
+            </Principal>
+            <Dependent Role="tbTipoConsorcio">
+              <PropertyRef Name="cd_grupoconsorcio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_statusproposta_proposta">
+          <End Role="tbStatusProposta" Type="Self.tbStatusProposta" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbStatusProposta">
+              <PropertyRef Name="cd_statusproposta" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_statusproposta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_proposta">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbPropostaCarta" Type="Self.tbPropostaCarta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbPropostaCarta">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_qualificacaocomprador">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbQualificacaoComprador" Type="Self.tbQualificacaoComprador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbQualificacaoComprador">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vendedor_qualificacaovendedor">
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="1" />
+          <End Role="tbQualificacaoVendedor" Type="Self.tbQualificacaoVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Principal>
+            <Dependent Role="tbQualificacaoVendedor">
+              <PropertyRef Name="cd_vendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_userpassword">
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="1" />
+          <End Role="tbUserPassword" Type="Self.tbUserPassword" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsers">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tbUserPassword">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_venndedor">
+          <End Role="tbUsers" Type="Self.tbUsers" Multiplicity="1" />
+          <End Role="tbVendedor" Type="Self.tbVendedor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsers">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="tbVendedor">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbConsorcioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAdmConsorcio" EntityType="Self.tbAdmConsorcio" />
+          <EntitySet Name="tbAnexoCarta" EntityType="Self.tbAnexoCarta" />
+          <EntitySet Name="tbCartaCredito" EntityType="Self.tbCartaCredito" />
+          <EntitySet Name="tbComprador" EntityType="Self.tbComprador" />
+          <EntitySet Name="tbFisicaJuridica" EntityType="Self.tbFisicaJuridica" />
+          <EntitySet Name="tbGrupoConsorcio" EntityType="Self.tbGrupoConsorcio" />
+          <EntitySet Name="tbPropostaCarta" EntityType="Self.tbPropostaCarta" />
+          <EntitySet Name="tbQualificacaoComprador" EntityType="Self.tbQualificacaoComprador" />
+          <EntitySet Name="tbQualificacaoVendedor" EntityType="Self.tbQualificacaoVendedor" />
+          <EntitySet Name="tbStatusCarta" EntityType="Self.tbStatusCarta" />
+          <EntitySet Name="tbStatusProposta" EntityType="Self.tbStatusProposta" />
+          <EntitySet Name="tbTipoConsorcio" EntityType="Self.tbTipoConsorcio" />
+          <EntitySet Name="tbUserPassword" EntityType="Self.tbUserPassword" />
+          <EntitySet Name="tbUsers" EntityType="Self.tbUsers" />
+          <EntitySet Name="tbVendedor" EntityType="Self.tbVendedor" />
+          <AssociationSet Name="fk_admconsorcio_carta" Association="Self.fk_admconsorcio_carta">
+            <End Role="tbAdmConsorcio" EntitySet="tbAdmConsorcio" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_anexocarta" Association="Self.fk_cartacredito_anexocarta">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbAnexoCarta" EntitySet="tbAnexoCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_proposta" Association="Self.fk_cartacredito_proposta">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_qualificacaocomprador" Association="Self.fk_cartacredito_qualificacaocomprador">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbQualificacaoComprador" EntitySet="tbQualificacaoComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cartacredito_qualificacaovendedor" Association="Self.fk_cartacredito_qualificacaovendedor">
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+            <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_statuscarta_carta" Association="Self.fk_statuscarta_carta">
+            <End Role="tbStatusCarta" EntitySet="tbStatusCarta" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipoconsorcio_carta" Association="Self.fk_tipoconsorcio_carta">
+            <End Role="tbTipoConsorcio" EntitySet="tbTipoConsorcio" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_carta" Association="Self.fk_vendedor_carta">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbCartaCredito" EntitySet="tbCartaCredito" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprador_proposta" Association="Self.fk_comprador_proposta">
+            <End Role="tbComprador" EntitySet="tbComprador" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprador_qualificacaocomprador" Association="Self.fk_comprador_qualificacaocomprador">
+            <End Role="tbComprador" EntitySet="tbComprador" />
+            <End Role="tbQualificacaoComprador" EntitySet="tbQualificacaoComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comprador_qualificacaovendedor" Association="Self.fk_comprador_qualificacaovendedor">
+            <End Role="tbComprador" EntitySet="tbComprador" />
+            <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_comprador" Association="Self.fk_user_comprador">
+            <End Role="tbUsers" EntitySet="tbUsers" />
+            <End Role="tbComprador" EntitySet="tbComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_fisjur_user" Association="Self.fk_fisjur_user">
+            <End Role="tbFisicaJuridica" EntitySet="tbFisicaJuridica" />
+            <End Role="tbUsers" EntitySet="tbUsers" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_grupo_consorcio" Association="Self.fk_tipo_grupo_consorcio">
+            <End Role="tbGrupoConsorcio" EntitySet="tbGrupoConsorcio" />
+            <End Role="tbTipoConsorcio" EntitySet="tbTipoConsorcio" />
+          </AssociationSet>
+          <AssociationSet Name="fk_statusproposta_proposta" Association="Self.fk_statusproposta_proposta">
+            <End Role="tbStatusProposta" EntitySet="tbStatusProposta" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_proposta" Association="Self.fk_vendedor_proposta">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbPropostaCarta" EntitySet="tbPropostaCarta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_qualificacaocomprador" Association="Self.fk_vendedor_qualificacaocomprador">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbQualificacaoComprador" EntitySet="tbQualificacaoComprador" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vendedor_qualificacaovendedor" Association="Self.fk_vendedor_qualificacaovendedor">
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+            <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_userpassword" Association="Self.fk_user_userpassword">
+            <End Role="tbUsers" EntitySet="tbUsers" />
+            <End Role="tbUserPassword" EntitySet="tbUserPassword" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_venndedor" Association="Self.fk_user_venndedor">
+            <End Role="tbUsers" EntitySet="tbUsers" />
+            <End Role="tbVendedor" EntitySet="tbVendedor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbConsorcioModelStoreContainer" CdmEntityContainer="dbConsorcioEntities">
+          <EntitySetMapping Name="tbAdmConsorcio">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbAdmConsorcio">
+              <MappingFragment StoreEntitySet="tbAdmConsorcio">
+                <ScalarProperty Name="cd_admconsorcio" ColumnName="cd_admconsorcio" />
+                <ScalarProperty Name="nm_admconsorcio" ColumnName="nm_admconsorcio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbAnexoCarta">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbAnexoCarta">
+              <MappingFragment StoreEntitySet="tbAnexoCarta">
+                <ScalarProperty Name="id_anexo" ColumnName="id_anexo" />
+                <ScalarProperty Name="cd_cartacredito" ColumnName="cd_cartacredito" />
+                <ScalarProperty Name="de_linkanexo" ColumnName="de_linkanexo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCartaCredito">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbCartaCredito">
+              <MappingFragment StoreEntitySet="tbCartaCredito">
+                <ScalarProperty Name="cd_cartacredito" ColumnName="cd_cartacredito" />
+                <ScalarProperty Name="cd_vendedor" ColumnName="cd_vendedor" />
+                <ScalarProperty Name="cd_admconsorcio" ColumnName="cd_admconsorcio" />
+                <ScalarProperty Name="cd_tipoconsorcio" ColumnName="cd_tipoconsorcio" />
+                <ScalarProperty Name="cd_statuscarta" ColumnName="cd_statuscarta" />
+                <ScalarProperty Name="de_cidade" ColumnName="de_cidade" />
+                <ScalarProperty Name="de_uf" ColumnName="de_uf" />
+                <ScalarProperty Name="nu_valorcredito" ColumnName="nu_valorcredito" />
+                <ScalarProperty Name="nu_valorentrada" ColumnName="nu_valorentrada" />
+                <ScalarProperty Name="nu_qtd_parcelas" ColumnName="nu_qtd_parcelas" />
+                <ScalarProperty Name="nu_valorparcela" ColumnName="nu_valorparcela" />
+                <ScalarProperty Name="nu_saldocarta" ColumnName="nu_saldocarta" />
+                <ScalarProperty Name="de_indexador" ColumnName="de_indexador" />
+                <ScalarProperty Name="nu_honorarios" ColumnName="nu_honorarios" />
+                <ScalarProperty Name="nu_taxajuros" ColumnName="nu_taxajuros" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbComprador">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbComprador">
+              <MappingFragment StoreEntitySet="tbComprador">
+                <ScalarProperty Name="cd_comprador" ColumnName="cd_comprador" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="dt_create" ColumnName="dt_create" />
+                <ScalarProperty Name="nu_qual_positiva" ColumnName="nu_qual_positiva" />
+                <ScalarProperty Name="nu_qual_negativa" ColumnName="nu_qual_negativa" />
+                <ScalarProperty Name="bt_bloqueado" ColumnName="bt_bloqueado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbFisicaJuridica">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbFisicaJuridica">
+              <MappingFragment StoreEntitySet="tbFisicaJuridica">
+                <ScalarProperty Name="cd_fisjur" ColumnName="cd_fisjur" />
+                <ScalarProperty Name="de_fisjur" ColumnName="de_fisjur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbGrupoConsorcio">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbGrupoConsorcio">
+              <MappingFragment StoreEntitySet="tbGrupoConsorcio">
+                <ScalarProperty Name="cd_grupoconsorcio" ColumnName="cd_grupoconsorcio" />
+                <ScalarProperty Name="de_grupoconsorcio" ColumnName="de_grupoconsorcio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPropostaCarta">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbPropostaCarta">
+              <MappingFragment StoreEntitySet="tbPropostaCarta">
+                <ScalarProperty Name="cd_propostacarta" ColumnName="cd_propostacarta" />
+                <ScalarProperty Name="cd_cartacredito" ColumnName="cd_cartacredito" />
+                <ScalarProperty Name="cd_vendedor" ColumnName="cd_vendedor" />
+                <ScalarProperty Name="cd_comprador" ColumnName="cd_comprador" />
+                <ScalarProperty Name="cd_statusproposta" ColumnName="cd_statusproposta" />
+                <ScalarProperty Name="de_mensagemproposta" ColumnName="de_mensagemproposta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbQualificacaoComprador">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbQualificacaoComprador">
+              <MappingFragment StoreEntitySet="tbQualificacaoComprador">
+                <ScalarProperty Name="cd_qualcomprador" ColumnName="cd_qualcomprador" />
+                <ScalarProperty Name="cd_comprador" ColumnName="cd_comprador" />
+                <ScalarProperty Name="cd_vendedor" ColumnName="cd_vendedor" />
+                <ScalarProperty Name="cd_cartacredito" ColumnName="cd_cartacredito" />
+                <ScalarProperty Name="nu_pontuacao" ColumnName="nu_pontuacao" />
+                <ScalarProperty Name="de_observacaovendedor" ColumnName="de_observacaovendedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbQualificacaoVendedor">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbQualificacaoVendedor">
+              <MappingFragment StoreEntitySet="tbQualificacaoVendedor">
+                <ScalarProperty Name="cd_qualvendedor" ColumnName="cd_qualvendedor" />
+                <ScalarProperty Name="cd_vendedor" ColumnName="cd_vendedor" />
+                <ScalarProperty Name="cd_comprador" ColumnName="cd_comprador" />
+                <ScalarProperty Name="cd_cartacredito" ColumnName="cd_cartacredito" />
+                <ScalarProperty Name="nu_pontuacao" ColumnName="nu_pontuacao" />
+                <ScalarProperty Name="de_observacaocomprador" ColumnName="de_observacaocomprador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbStatusCarta">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbStatusCarta">
+              <MappingFragment StoreEntitySet="tbStatusCarta">
+                <ScalarProperty Name="cd_statuscarta" ColumnName="cd_statuscarta" />
+                <ScalarProperty Name="de_statuscarta" ColumnName="de_statuscarta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbStatusProposta">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbStatusProposta">
+              <MappingFragment StoreEntitySet="tbStatusProposta">
+                <ScalarProperty Name="cd_statusproposta" ColumnName="cd_statusproposta" />
+                <ScalarProperty Name="de_statusproposta" ColumnName="de_statusproposta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbTipoConsorcio">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbTipoConsorcio">
+              <MappingFragment StoreEntitySet="tbTipoConsorcio">
+                <ScalarProperty Name="cd_tipoconsorcio" ColumnName="cd_tipoconsorcio" />
+                <ScalarProperty Name="de_tipoconsorcio" ColumnName="de_tipoconsorcio" />
+                <ScalarProperty Name="cd_grupoconsorcio" ColumnName="cd_grupoconsorcio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUserPassword">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbUserPassword">
+              <MappingFragment StoreEntitySet="tbUserPassword">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="de_password" ColumnName="de_password" />
+                <ScalarProperty Name="dt_create" ColumnName="dt_create" />
+                <ScalarProperty Name="dt_update" ColumnName="dt_update" />
+                <ScalarProperty Name="bt_bloqueio" ColumnName="bt_bloqueio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUsers">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbUsers">
+              <MappingFragment StoreEntitySet="tbUsers">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="nm_user" ColumnName="nm_user" />
+                <ScalarProperty Name="nm_apelido" ColumnName="nm_apelido" />
+                <ScalarProperty Name="cd_fisjur" ColumnName="cd_fisjur" />
+                <ScalarProperty Name="cd_cpf" ColumnName="cd_cpf" />
+                <ScalarProperty Name="cd_cnpj" ColumnName="cd_cnpj" />
+                <ScalarProperty Name="cd_ie" ColumnName="cd_ie" />
+                <ScalarProperty Name="bit_bloqueio" ColumnName="bit_bloqueio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbVendedor">
+            <EntityTypeMapping TypeName="dbConsorcioModel.tbVendedor">
+              <MappingFragment StoreEntitySet="tbVendedor">
+                <ScalarProperty Name="cd_vendedor" ColumnName="cd_vendedor" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="dt_create" ColumnName="dt_create" />
+                <ScalarProperty Name="nu_qual_positiva" ColumnName="nu_qual_positiva" />
+                <ScalarProperty Name="nu_qual_negativa" ColumnName="nu_qual_negativa" />
+                <ScalarProperty Name="bt_bloqueado" ColumnName="bt_bloqueado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C71B22B8-E106-4980-813C-B80C6A86164C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LibConsorcioOnline</RootNamespace>
+    <AssemblyName>LibConsorcioOnline</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ADOConsorcio.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ADOConsorcio.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADOConsorcio.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADOConsorcio.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ADOConsorcio.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="clsCRUDConsorcio.cs" />
+    <Compile Include="clsJSONFormatter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tbAdmConsorcio.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbAnexoCarta.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbCartaCredito.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbComprador.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbFisicaJuridica.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbGrupoConsorcio.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbPropostaCarta.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbQualificacaoComprador.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbQualificacaoVendedor.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbStatusCarta.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbStatusProposta.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbTipoConsorcio.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbUserPassword.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbUsers.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbVendedor.cs">
+      <DependentUpon>ADOConsorcio.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="ADOConsorcio.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ADOConsorcio.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ADOConsorcio.edmx.diagram">
+      <DependentUpon>ADOConsorcio.edmx</DependentUpon>
+    </None>
+    <None Include="App.Config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ADOConsorcio.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ADOConsorcio.edmx</DependentUpon>
+      <LastGenOutput>ADOConsorcio.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="ADOConsorcio.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ADOConsorcio.edmx</DependentUpon>
+      <LastGenOutput>ADOConsorcio.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

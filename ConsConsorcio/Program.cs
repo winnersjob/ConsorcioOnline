@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibConsorcioOnline;
+using System.Security.Cryptography;
 
 namespace ConsConsorcio
 {
@@ -11,13 +12,24 @@ namespace ConsConsorcio
     {
         static void Main(string[] args)
         {
-            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
-            tbStatusCarta newStatusCarta = new tbStatusCarta();
-            
+            SHA512 sha = new SHA512Managed();
+            string strNome = "roger.alves";
+            byte[] encoding;
+            byte[] hash;
+            string strHashCode = "";
+
             try
             {
-                newStatusCarta.de_statuscarta = "Em Análise";
-                CRUD.insertStatusCarta(newStatusCarta);
+                encoding = Encoding.UTF8.GetBytes(strNome);
+                hash = sha.ComputeHash(encoding);
+
+                foreach (byte x in hash)
+                {
+                    strHashCode += String.Format("{0:x2}", x);
+                }
+
+                Console.WriteLine(strHashCode);
+                Console.Read();
             }
             catch(Exception ex)
             {

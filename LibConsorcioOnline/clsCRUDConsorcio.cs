@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace LibConsorcioOnline
 {
@@ -100,6 +101,86 @@ namespace LibConsorcioOnline
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public void insertUserPassword(tbUserPassword newPassword)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbUserPassword password = new tbUserPassword();
+
+                    password.id_user = newPassword.id_user;
+                    password.de_password = returnSHA512String(newPassword.de_password);
+                    password.dt_create = DateTime.Now;
+                    password.bt_bloqueio = false;
+                    
+                    consorcio.tbUserPassword.Add(password);
+                    consorcio.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void updateUserPassword(tbUserPassword upPassword)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbUserPassword password = consorcio.tbUserPassword.Where(p => p.id_user == upPassword.id_user).FirstOrDefault();
+
+                    if (password == null)
+                    {
+                        throw new Exception("Usuário sem Password definido");
+                    }
+
+                    password.de_password = returnSHA512String(upPassword.de_password);
+                    password.dt_create = upPassword.dt_create;
+                    password.dt_update = DateTime.Now; 
+                    password.bt_bloqueio = false;
+
+                    consorcio.tbUserPassword.Add(password);
+                    consorcio.SaveChanges();                
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        
+        private string returnSHA512String(string strTexto)
+        {
+            SHA512 sha = new SHA512Managed();
+            byte[] bEncoding;
+            byte[] bHash;
+            string strHashCode = "";
+
+            try
+            {
+                bEncoding = Encoding.UTF8.GetBytes(String.Concat("K0n$0rc10", strTexto, "onl1n3"));
+                bHash = sha.ComputeHash(bEncoding);
+
+                foreach(byte b in bHash)
+                {
+                    strHashCode += String.Format("{0:x2}", b);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            sha.Dispose();
+
+            return strHashCode;
+
         }
 
     }

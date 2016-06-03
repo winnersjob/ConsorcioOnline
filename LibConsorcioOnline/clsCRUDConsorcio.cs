@@ -154,6 +154,23 @@ namespace LibConsorcioOnline
             }
         }
         
+        public void insertComprador(tbComprador newComprador)
+        {
+            try
+            {
+                using(dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbComprador comprador = new tbComprador();
+
+                    
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         private string returnSHA512String(string strTexto)
         {
             SHA512 sha = new SHA512Managed();

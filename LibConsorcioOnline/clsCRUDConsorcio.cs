@@ -141,9 +141,8 @@ namespace LibConsorcioOnline
                     password.de_password = returnSHA512String(upPassword.de_password);
                     password.dt_create = upPassword.dt_create;
                     password.dt_update = DateTime.Now; 
-                    password.bt_bloqueio = false;
-
-                    consorcio.tbUserPassword.Add(password);
+                    password.bt_bloqueio = password.bt_bloqueio;
+                    
                     consorcio.SaveChanges();                
 
                 }
@@ -162,7 +161,114 @@ namespace LibConsorcioOnline
                 {
                     tbComprador comprador = new tbComprador();
 
+                    comprador.id_user = newComprador.id_user;
+                    comprador.dt_create = DateTime.Now;
+                    comprador.bt_bloqueado = false;
+
+                    consorcio.tbComprador.Add(comprador);
+                    consorcio.SaveChanges();
                     
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void updateComprador(tbComprador upComprador)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbComprador comprador = consorcio.tbComprador.Where(c => c.id_user == upComprador.id_user).FirstOrDefault();
+
+                    comprador.nu_qual_negativa = upComprador.nu_qual_negativa;
+                    comprador.nu_qual_positiva = upComprador.nu_qual_positiva;
+                    comprador.bt_bloqueado = upComprador.bt_bloqueado;
+
+                    consorcio.SaveChanges();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+                    
+            }
+        }
+
+        public void insertVendedor(tbVendedor newVendedor)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbVendedor vendedor = new tbVendedor();
+
+                    vendedor.id_user = newVendedor.id_user;
+                    vendedor.dt_create = DateTime.Now;
+                    vendedor.bt_bloqueado = false;
+
+                    consorcio.tbVendedor.Add(vendedor);
+                    consorcio.SaveChanges();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void updateVendedor(tbVendedor upVendedor)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbVendedor vendedor = consorcio.tbVendedor.Where(c => c.id_user == upVendedor.id_user).FirstOrDefault();
+
+                    vendedor.nu_qual_negativa = upVendedor.nu_qual_negativa;
+                    vendedor.nu_qual_positiva = upVendedor.nu_qual_positiva;
+                    vendedor.bt_bloqueado = upVendedor.bt_bloqueado;
+
+                    consorcio.SaveChanges();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+
+            }
+        }
+
+        public void insertCartaCredito(tbCartaCredito newCartaCredito)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbCartaCredito carta = new tbCartaCredito();
+
+                    carta.cd_vendedor = newCartaCredito.cd_vendedor;
+                    carta.cd_admconsorcio = newCartaCredito.cd_admconsorcio;
+                    carta.cd_tipoconsorcio = newCartaCredito.cd_tipoconsorcio;
+                    carta.cd_statuscarta = newCartaCredito.cd_statuscarta;
+                    carta.de_cidade = newCartaCredito.de_cidade;
+                    carta.de_uf = newCartaCredito.de_uf;
+                    carta.nu_valorcredito = newCartaCredito.nu_valorcredito;
+                    carta.nu_valorentrada = newCartaCredito.nu_valorentrada;
+                    carta.nu_qtd_parcelas = newCartaCredito.nu_qtd_parcelas;
+                    carta.nu_valorparcela = newCartaCredito.nu_valorparcela;
+                    carta.nu_saldocarta = newCartaCredito.nu_saldocarta;
+                    carta.de_indexador = newCartaCredito.de_indexador;
+                    carta.nu_honorarios = newCartaCredito.nu_honorarios;
+                    carta.nu_taxajuros = newCartaCredito.nu_taxajuros;
+
+                    consorcio.tbCartaCredito.Add(carta);
+                    consorcio.SaveChanges();
+
                 }
             }
             catch(Exception ex)

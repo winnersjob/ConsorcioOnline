@@ -9,6 +9,9 @@ namespace LibConsorcioOnline
 {
     public class clsCRUDConsorcio
     {
+        private enum enStatusCarta { EmAnalise=1, Publicada=2, Reprovada=3};
+        private enum enStatusProposta { EmAnalise=1, Aprovada=2, Reprovada=3};
+
         public void insertStatusCarta(tbStatusCarta newStatusCarta)
         { 
             try
@@ -269,6 +272,167 @@ namespace LibConsorcioOnline
                     consorcio.tbCartaCredito.Add(carta);
                     consorcio.SaveChanges();
 
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void updateCartaCredito(tbCartaCredito upCartaCredito)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbCartaCredito carta = consorcio.tbCartaCredito.Where(c => c.cd_cartacredito == upCartaCredito.cd_cartacredito).FirstOrDefault();
+
+                    carta.cd_admconsorcio = upCartaCredito.cd_admconsorcio;
+                    carta.cd_tipoconsorcio = upCartaCredito.cd_tipoconsorcio;
+                    carta.cd_statuscarta = upCartaCredito.cd_statuscarta;
+                    carta.de_cidade = upCartaCredito.de_cidade;
+                    carta.de_uf = upCartaCredito.de_uf;
+                    carta.nu_valorcredito = upCartaCredito.nu_valorcredito;
+                    carta.nu_valorentrada = upCartaCredito.nu_valorentrada;
+                    carta.nu_qtd_parcelas = upCartaCredito.nu_qtd_parcelas;
+                    carta.nu_valorparcela = upCartaCredito.nu_valorparcela;
+                    carta.nu_saldocarta = upCartaCredito.nu_saldocarta;
+                    carta.de_indexador = upCartaCredito.de_indexador;
+                    carta.nu_honorarios = upCartaCredito.nu_honorarios;
+                    carta.nu_taxajuros = upCartaCredito.nu_taxajuros;
+
+                    consorcio.SaveChanges();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void insertAnexoCarta(tbAnexoCarta newAnexoCarta)
+        {
+            try
+            {
+                using(dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbAnexoCarta anexo = new tbAnexoCarta();
+
+                    anexo.id_anexo = new Guid().ToString();
+                    anexo.cd_cartacredito = newAnexoCarta.cd_cartacredito;
+                    anexo.de_linkanexo = newAnexoCarta.de_linkanexo;
+
+                    consorcio.tbAnexoCarta.Add(anexo);
+                    consorcio.SaveChanges();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void updateAnexoCarta(tbAnexoCarta upAnexoCarta)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbAnexoCarta anexo = consorcio.tbAnexoCarta.Where(a => a.id_anexo == upAnexoCarta.id_anexo).FirstOrDefault();
+
+                    anexo.de_linkanexo = upAnexoCarta.de_linkanexo;
+
+                    consorcio.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void insertPropostaCarta(tbPropostaCarta newPropostaCarta)
+        {
+            try
+            {
+                using(dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbPropostaCarta proposta = new tbPropostaCarta();
+
+                    proposta.cd_cartacredito = newPropostaCarta.cd_cartacredito;
+                    proposta.cd_vendedor = newPropostaCarta.cd_vendedor;
+                    proposta.cd_comprador = newPropostaCarta.cd_comprador;
+                    proposta.cd_statusproposta = (int)enStatusProposta.EmAnalise;
+                    proposta.de_mensagemproposta = newPropostaCarta.de_mensagemproposta;
+
+                    consorcio.tbPropostaCarta.Add(proposta);
+                    consorcio.SaveChanges();                               
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void updatePropostaCarta(tbPropostaCarta upPropostaCarta)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbPropostaCarta proposta = consorcio.tbPropostaCarta.Where(p => p.cd_propostacarta == upPropostaCarta.cd_propostacarta).FirstOrDefault();
+
+                    proposta.cd_statusproposta = upPropostaCarta.cd_statusproposta;
+
+                    consorcio.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void insertQualificacaoComprador(tbQualificacaoComprador newQualificacaoComprador)
+        {
+            try
+            {
+                using(dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbQualificacaoComprador qualificacao = new tbQualificacaoComprador();
+
+                    qualificacao.cd_comprador = newQualificacaoComprador.cd_comprador;
+                    qualificacao.cd_vendedor = newQualificacaoComprador.cd_vendedor;
+                    qualificacao.cd_cartacredito = newQualificacaoComprador.cd_cartacredito;
+                    qualificacao.nu_pontuacao = newQualificacaoComprador.nu_pontuacao;
+                    qualificacao.de_observacaovendedor = newQualificacaoComprador.de_observacaovendedor;
+
+                    consorcio.tbQualificacaoComprador.Add(qualificacao);
+                    consorcio.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void insertQualificacaoVendedor(tbQualificacaoVendedor newQualificacaoVendedor)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbQualificacaoVendedor qualificacao = new tbQualificacaoVendedor();
+
+                    qualificacao.cd_vendedor = newQualificacaoVendedor.cd_vendedor;
+                    qualificacao.cd_comprador = newQualificacaoVendedor.cd_comprador;
+                    qualificacao.cd_cartacredito = newQualificacaoVendedor.cd_cartacredito;
+                    qualificacao.nu_pontuacao = newQualificacaoVendedor.nu_pontuacao;
+                    qualificacao.de_observacaocomprador = newQualificacaoVendedor.de_observacaocomprador;
+
+                    consorcio.tbQualificacaoVendedor.Add(qualificacao);
+                    consorcio.SaveChanges();
                 }
             }
             catch(Exception ex)

@@ -16,5 +16,6 @@ namespace ConsorcioOnline.Models
         public string CPF { get; set; }
         public string CNPJ { get; set; }
         public string IE { get; set; }
+        public bool Blocked { get; set; }
     }
 }

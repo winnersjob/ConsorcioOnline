@@ -9,8 +9,7 @@ namespace ConsorcioOnline.Models
         [Key]
         public Int32 Id { get; set; }
         [Required]
-        public string IdUser { get; set; }
-        [Required]
+        public string IdUser { get; set; }        
         public DateTime CreatedAt { get; set; }
         [Required]
         public Int32 PositiveFeedback { get; set; }

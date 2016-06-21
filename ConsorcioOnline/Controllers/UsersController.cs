@@ -36,12 +36,12 @@ namespace ConsorcioOnline.Controllers
         }
 
         // PUT: api/Users/5
-        public void Put(int id, [FromBody]Users value)
+        public void Put(string id, [FromBody]Users value)
         {
             tbUsers upUser = new tbUsers();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            upUser.id_user = value.Id;
+            upUser.id_user = id;
             upUser.nm_user = value.Nome;
             upUser.nm_apelido = value.Apelido;
             upUser.cd_fisjur = value.FisJur;

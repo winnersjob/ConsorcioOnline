@@ -9,7 +9,7 @@ namespace ConsorcioOnline.Models
         [Key]
         public string Id { get; set; }
         [Required]
-        public Int32 IdCarta { get; set; }
+        public long IdCarta { get; set; }
         [Required]
         public string LinkAnexo { get; set; }
 

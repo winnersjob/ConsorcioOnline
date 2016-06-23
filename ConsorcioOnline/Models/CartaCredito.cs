@@ -21,20 +21,20 @@ namespace ConsorcioOnline.Models
         [Required]
         public string UF { get; set; }
         [Required]
-        public double ValorCredito { get; set; }
+        public decimal ValorCredito { get; set; }
         [Required]
-        public double ValorEntrata { get; set; }
+        public decimal ValorEntrata { get; set; }
         [Required]
         public int QtdParcelas { get; set; }
         [Required]
-        public double ValorParcela { get; set; }
+        public decimal ValorParcela { get; set; }
         [Required]
-        public double SaldoCarta { get; set; }
+        public decimal SaldoCarta { get; set; }
         [Required]
         public string Indexador { get; set; }
         [Required]
-        public double Honorarios { get; set; }
+        public decimal Honorarios { get; set; }
         [Required]
-        public double TaxaJuros { get; set; }
+        public decimal TaxaJuros { get; set; }
     }
 }

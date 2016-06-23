@@ -27,11 +27,26 @@ namespace ConsorcioOnline.Controllers
         public void Post([FromBody]Vendedor value)
         {
             tbVendedor newVendedor = new tbVendedor();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+
+            newVendedor.id_user = value.IdUser;
+
+            CRUD.insertVendedor(newVendedor);
         }
 
         // PUT: api/Vendedor/5
-        public void Put(Int32 id, [FromBody]Vendedor value)
+        public void Put(long id, [FromBody]Vendedor value)
         {
+            tbVendedor upVendedor = new tbVendedor();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+
+            upVendedor.cd_vendedor = id;
+            upVendedor.id_user = value.IdUser;
+            upVendedor.nu_qual_negativa = value.NegativeFeedback;
+            upVendedor.nu_qual_positiva = value.PositiveFeedback;
+            upVendedor.bt_bloqueado = value.Blocked;
+
+            CRUD.updateVendedor(upVendedor);
         }
 
         //// DELETE: api/Vendedor/5

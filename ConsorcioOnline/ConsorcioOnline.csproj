@@ -235,8 +235,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnexoCartaController.cs" />
+    <Compile Include="Controllers\CartaController.cs" />
     <Compile Include="Controllers\CompradorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PropostaCartaController.cs" />
+    <Compile Include="Controllers\QualificacaoCompradorController.cs" />
+    <Compile Include="Controllers\QualificacaoVendedorController.cs" />
     <Compile Include="Controllers\UserPasswordController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

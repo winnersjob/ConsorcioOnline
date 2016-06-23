@@ -35,7 +35,7 @@ namespace ConsorcioOnline.Controllers
         }
 
         // PUT: api/Comprador/5
-        public void Put(Int32 id, [FromBody]Comprador value)
+        public void Put(long id, [FromBody]Comprador value)
         {
             tbComprador upComprador = new tbComprador();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();

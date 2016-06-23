@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ConsorcioOnline.Models
 {
-    class QualificacaoVendedor
+    public class QualificacaoVendedor
     {
         [Key]
-        public Int32 Id { get; set; }
+        public long Id { get; set; }
         [Required]
-        public Int32 IdCarta { get; set; }
+        public long IdCarta { get; set; }
         [Required]
-        public Int32 IdComprador { get; set; }
+        public long IdComprador { get; set; }
         [Required]
-        public Int32 IdVendedor { get; set; }
+        public long IdVendedor { get; set; }
         [Required]
         public int Pontuacao { get; set; }
         [Required]

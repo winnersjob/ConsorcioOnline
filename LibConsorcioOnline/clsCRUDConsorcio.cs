@@ -105,6 +105,24 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
+        public tbUsers readUser(string idUser)
+        {
+            tbUsers user;
+
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    user = consorcio.tbUsers.Where(u => u.id_user == idUser).FirstOrDefault();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return user;
+        }
 
         public void insertUserPassword(tbUserPassword newPassword)
         {

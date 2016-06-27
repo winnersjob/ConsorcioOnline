@@ -13,10 +13,27 @@ namespace ConsorcioOnline.Controllers
     {
 
         // GET: api/Users/5
-        //public Users Get(int id)
-        //{
-          
-        //}
+        public string Get(string id)
+        {
+            Users retUser = new Users();
+            tbUsers user = new tbUsers();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            
+            user = CRUD.readUser(id);
+
+            retUser.Id = id;
+            retUser.Nome = user.nm_user;
+            retUser.Apelido = user.nm_apelido;
+            retUser.FisJur = user.cd_fisjur;
+            retUser.CPF = user.cd_cpf;
+            retUser.CNPJ = user.cd_cnpj;
+            retUser.IE = user.cd_ie;
+            retUser.Blocked = user.bit_bloqueio;
+
+            return formatter.classtoJSON(retUser);
+                        
+        }
 
         // POST: api/Users
         public void Post([FromBody]Users value)

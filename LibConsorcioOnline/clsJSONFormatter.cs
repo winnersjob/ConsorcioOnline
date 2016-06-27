@@ -8,7 +8,7 @@ using System.IO;
 
 namespace LibConsorcioOnline
 {
-    class clsJSONFormatter
+    public class clsJSONFormatter
     {
         public string classtoJSON(Object clsObject)
         {

@@ -13,7 +13,7 @@ namespace ConsorcioOnline.Controllers
     {
 
         // GET: api/Users/5
-        public string Get(string id)
+        public Users Get(string id)
         {
             Users retUser = new Users();
             tbUsers user = new tbUsers();
@@ -31,7 +31,8 @@ namespace ConsorcioOnline.Controllers
             retUser.IE = user.cd_ie;
             retUser.Blocked = user.bit_bloqueio;
 
-            return formatter.classtoJSON(retUser);
+            // return formatter.ClasstoJSON(retUser);
+            return retUser;
                         
         }
 

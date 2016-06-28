@@ -47,7 +47,7 @@ namespace LibConsorcioOnline
                     user.cd_cnpj = newUser.cd_cnpj;
                     user.cd_cpf = newUser.cd_cpf;
                     user.cd_ie = newUser.cd_ie;
-                    user.bit_bloqueio = false;
+                    user.bit_bloqueio = 0;
 
                     consorcio.tbUsers.Add(user);
                     consorcio.SaveChanges();

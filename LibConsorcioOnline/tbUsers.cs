@@ -27,7 +27,7 @@ namespace LibConsorcioOnline
         public string cd_cpf { get; set; }
         public string cd_cnpj { get; set; }
         public string cd_ie { get; set; }
-        public bool bit_bloqueio { get; set; }
+        public int bit_bloqueio { get; set; }
     
         public virtual ICollection<tbComprador> tbComprador { get; set; }
         public virtual tbFisicaJuridica tbFisicaJuridica { get; set; }

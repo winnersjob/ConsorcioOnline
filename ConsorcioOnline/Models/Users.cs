@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-
+using System.Runtime.Serialization.Json;
 
 namespace ConsorcioOnline.Models
 {
     [DataContract]
     public class Users
-    {
-        [DataMember]
+    {        
         [Key]
-        public string Id { get; set; }
         [DataMember]
+        public string Id { get; set;}        
         [Required]
+        [DataMember]
         public string Nome { get; set; }
         [DataMember]
-        public string Apelido { get; set; }
-        [DataMember]
+        public string Apelido { get; set; }        
         [Required]
+        [DataMember]
         public int FisJur { get; set; }
         [DataMember]
         public string CPF { get; set; }
@@ -27,6 +27,6 @@ namespace ConsorcioOnline.Models
         [DataMember]
         public string IE { get; set; }
         [DataMember]
-        public bool Blocked { get; set; }
+        public int Blocked { get; set; }
     }
 }

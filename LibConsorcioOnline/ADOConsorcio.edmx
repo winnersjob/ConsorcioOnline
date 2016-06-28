@@ -109,7 +109,7 @@
           <Key>
             <PropertyRef Name="cd_statusproposta" />
           </Key>
-          <Property Name="cd_statusproposta" Type="int" Nullable="false" />
+          <Property Name="cd_statusproposta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="de_statusproposta" Type="varchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="tbTipoConsorcio">
@@ -141,13 +141,13 @@
           <Property Name="cd_cpf" Type="varchar" MaxLength="11" />
           <Property Name="cd_cnpj" Type="varchar" MaxLength="14" />
           <Property Name="cd_ie" Type="varchar" MaxLength="20" />
-          <Property Name="bit_bloqueio" Type="bit" Nullable="false" />
+          <Property Name="bit_bloqueio" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="tbVendedor">
           <Key>
             <PropertyRef Name="cd_vendedor" />
           </Key>
-          <Property Name="cd_vendedor" Type="bigint" Nullable="false" />
+          <Property Name="cd_vendedor" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_user" Type="varchar" MaxLength="36" Nullable="false" />
           <Property Name="dt_create" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="nu_qual_positiva" Type="bigint" Nullable="false" />
@@ -627,7 +627,7 @@
           <Key>
             <PropertyRef Name="cd_statusproposta" />
           </Key>
-          <Property Name="cd_statusproposta" Type="Int32" Nullable="false" />
+          <Property Name="cd_statusproposta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="de_statusproposta" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="tbPropostaCarta" Relationship="Self.fk_statusproposta_proposta" FromRole="tbStatusProposta" ToRole="tbPropostaCarta" />
         </EntityType>
@@ -663,7 +663,7 @@
           <Property Name="cd_cpf" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
           <Property Name="cd_cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="cd_ie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="bit_bloqueio" Type="Boolean" Nullable="false" />
+          <Property Name="bit_bloqueio" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tbComprador" Relationship="Self.fk_user_comprador" FromRole="tbUsers" ToRole="tbComprador" />
           <NavigationProperty Name="tbFisicaJuridica" Relationship="Self.fk_fisjur_user" FromRole="tbUsers" ToRole="tbFisicaJuridica" />
           <NavigationProperty Name="tbUserPassword" Relationship="Self.fk_user_userpassword" FromRole="tbUsers" ToRole="tbUserPassword" />
@@ -673,7 +673,7 @@
           <Key>
             <PropertyRef Name="cd_vendedor" />
           </Key>
-          <Property Name="cd_vendedor" Type="Int64" Nullable="false" />
+          <Property Name="cd_vendedor" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_user" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dt_create" Type="DateTime" Nullable="false" />
           <Property Name="nu_qual_positiva" Type="Int64" Nullable="false" />

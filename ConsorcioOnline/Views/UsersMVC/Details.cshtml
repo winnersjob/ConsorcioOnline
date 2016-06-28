@@ -31,7 +31,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FisJur)
+            @Html.RadioButton("FisJur", 1, Html.DisplayFor(model => model.FisJur).ToString() == "1" ? true : false, new { disabled="disabled" }) Fisica
+            @Html.RadioButton("FisJur", 2, Html.DisplayFor(model => model.FisJur).ToString() == "2" ? true : false, new { disabled="disabled" }) Juridica
         </dd>
 
         <dt>

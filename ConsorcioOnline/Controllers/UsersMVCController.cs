@@ -26,11 +26,11 @@ namespace ConsorcioOnline.Controllers
         // GET: UsersMVC/Details/5
         public ActionResult Details(string id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUser"]);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"],"/",id));
             HttpWebResponse response;
             StreamReader sr;
             clsJSONFormatter formatter = new clsJSONFormatter();
-            Users users = new Users();
+            Users users;
 
             request.ContentType = "application/json";
             request.Accept = "application/json";
@@ -40,7 +40,7 @@ namespace ConsorcioOnline.Controllers
             response = (HttpWebResponse)request.GetResponse();
             sr = new StreamReader(response.GetResponseStream());
 
-            formatter.JSONtoClass(sr.ReadToEnd(), users);
+            users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
 
             if (id == null)
             {

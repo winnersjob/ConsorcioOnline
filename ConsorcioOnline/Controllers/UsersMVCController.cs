@@ -16,7 +16,7 @@ namespace ConsorcioOnline.Controllers
 {
     public class UsersMVCController : Controller
     {
-       
+
         //// GET: UsersMVC
         //public ActionResult Index()
         //{
@@ -24,6 +24,9 @@ namespace ConsorcioOnline.Controllers
         //}
 
         // GET: UsersMVC/Details/5
+
+        public string Id { get; set; }
+
         public ActionResult Details(string id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"],"/",id));
@@ -50,6 +53,9 @@ namespace ConsorcioOnline.Controllers
             {
                 return HttpNotFound();
             }
+
+            Id = id;
+
             return View(users);
         }
 
@@ -76,20 +82,35 @@ namespace ConsorcioOnline.Controllers
             return View(users);
         }
 
-        //// GET: UsersMVC/Edit/5
-        //public ActionResult Edit(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Users users = db.Users.Find(id);
-        //    if (users == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(users);
-        //}
+        // GET: UsersMVC/Edit/5
+        public ActionResult Edit(string id)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", id));
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            Users users;
+
+            request.ContentType = "application/json";
+            request.Accept = "application/json";
+            request.Method = "GET";
+            request.KeepAlive = false;
+
+            response = (HttpWebResponse)request.GetResponse();
+            sr = new StreamReader(response.GetResponseStream());
+
+            users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (users == null)
+            {
+                return HttpNotFound();
+            }
+            return View(users);
+        }
 
         //// POST: UsersMVC/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

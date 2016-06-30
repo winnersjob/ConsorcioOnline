@@ -18,7 +18,6 @@ namespace ConsorcioOnline.Controllers
             Users retUser = new Users();
             tbUsers user = new tbUsers();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
-            clsJSONFormatter formatter = new clsJSONFormatter();
             
             user = CRUD.readUser(id);
 
@@ -31,7 +30,6 @@ namespace ConsorcioOnline.Controllers
             retUser.IE = user.cd_ie;
             retUser.Blocked = user.bit_bloqueio;
 
-            // return formatter.ClasstoJSON(retUser);
             return retUser;
                         
         }

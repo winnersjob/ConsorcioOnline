@@ -25,8 +25,6 @@ namespace ConsorcioOnline.Controllers
 
         // GET: UsersMVC/Details/5
 
-        public string Id { get; set; }
-
         public ActionResult Details(string id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"],"/",id));
@@ -54,8 +52,6 @@ namespace ConsorcioOnline.Controllers
                 return HttpNotFound();
             }
 
-            Id = id;
-
             return View(users);
         }
 
@@ -70,16 +66,35 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Apelido,FisJur,CPF,CNPJ,IE,Blocked")] Users users)
+        public ActionResult Create([Bind(Include = "Nome,Apelido,FisJur,CPF,CNPJ,IE")] Users users)
         {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUser"]);
+            HttpWebResponse response;
+            StreamReader sr;
+            StreamWriter sw;
+            MemoryStream ms;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
             if (ModelState.IsValid)
             {
-                //db.Users.Add(users);
-                //db.SaveChanges();
-                return RedirectToAction("Index");
+                strJSON = formatter.ClasstoJSON(users);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "POST";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
             }
 
-            return View(users);
+            return RedirectToAction("Home", "Index");
         }
 
         // GET: UsersMVC/Edit/5
@@ -112,21 +127,42 @@ namespace ConsorcioOnline.Controllers
             return View(users);
         }
 
-        //// POST: UsersMVC/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,Nome,Apelido,FisJur,CPF,CNPJ,IE,Blocked")] Users users)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(users).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(users);
-        //}
+        // POST: UsersMVC/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Nome,Apelido,FisJur,CPF,CNPJ,IE")] Users users)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", Session["UserID"].ToString()));
+            HttpWebResponse response;
+            StreamReader sr;
+            StreamWriter sw;
+            MemoryStream ms;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
+            if (ModelState.IsValid)
+            {
+                users.Id = Session["UserID"].ToString();
+
+                strJSON = formatter.ClasstoJSON(users);
+                
+                request.ContentType = "application/json"    ;
+                request.Accept = "application/json";
+                request.Method = "PUT";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
+            }
+            return View(users);
+        }
 
         //// GET: UsersMVC/Delete/5
         //public ActionResult Delete(string id)

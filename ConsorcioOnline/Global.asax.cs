@@ -19,5 +19,9 @@ namespace ConsorcioOnline
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Session_Start()
+        {
+            Session.Add("UserID", "c652fc1e-3d79-11e6-8784-02a634789f97");
+        } 
     }
 }

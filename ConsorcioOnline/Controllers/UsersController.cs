@@ -66,6 +66,7 @@ namespace ConsorcioOnline.Controllers
             upUser.cd_ie = value.IE;
 
             CRUD.updateUser(upUser);
+                                                 
         }
 
         // DELETE: api/Users/5

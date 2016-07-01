@@ -40,7 +40,7 @@ namespace LibConsorcioOnline
                 {
                     tbUsers user = new tbUsers();
 
-                    user.id_user = new Guid().ToString();
+                    user.id_user = Guid.NewGuid().ToString();
                     user.nm_user = newUser.nm_user;
                     user.nm_apelido = newUser.nm_apelido;                    
                     user.cd_fisjur = newUser.cd_fisjur;

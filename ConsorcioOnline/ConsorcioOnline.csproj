@@ -247,6 +247,7 @@
     <Compile Include="Controllers\QualificacaoCompradorController.cs" />
     <Compile Include="Controllers\QualificacaoVendedorController.cs" />
     <Compile Include="Controllers\UserPasswordController.cs" />
+    <Compile Include="Controllers\UserPasswordMVCController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UsersMVCController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
@@ -331,6 +332,11 @@
     <Content Include="Views\UsersMVC\Details.cshtml" />
     <Content Include="Views\UsersMVC\Edit.cshtml" />
     <Content Include="Views\UsersMVC\Index.cshtml" />
+    <Content Include="Views\UserPasswordMVC\Create.cshtml" />
+    <Content Include="Views\UserPasswordMVC\Delete.cshtml" />
+    <Content Include="Views\UserPasswordMVC\Details.cshtml" />
+    <Content Include="Views\UserPasswordMVC\Edit.cshtml" />
+    <Content Include="Views\UserPasswordMVC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,5 +29,7 @@ namespace ConsorcioOnline.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ConsorcioOnline.Models.UserPassword> UserPasswords { get; set; }
     }
 }

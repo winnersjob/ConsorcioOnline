@@ -63,6 +63,10 @@ namespace ConsorcioOnline.Controllers
 
             ViewData["UserName"] = users.Nome;
 
+            request.Abort();
+            response.Close();
+            sr.Dispose();
+
             return View();
         }
 
@@ -71,18 +75,18 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Password,PasswordConfirm,Blocked")] UserPassword userPassword)
+        public ActionResult Create([Bind(Include = "Password,PasswordConfirm")] UserPassword userPassword)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"],"/",Session["UserID"].ToString()));
             HttpWebResponse response;
-            StreamReader sr;
             StreamWriter sw;
-            MemoryStream ms;
             clsJSONFormatter formatter = new clsJSONFormatter();
             string strJSON = "";
 
             if (ModelState.IsValid)
             {
+                userPassword.Id = Session["UserID"].ToString();
+
                 strJSON = formatter.ClasstoJSON(userPassword);
 
                 request.ContentType = "application/json";
@@ -96,21 +100,33 @@ namespace ConsorcioOnline.Controllers
 
                 response = (HttpWebResponse)request.GetResponse();
 
-                return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
+                request.Abort();
+                response.Close();
+                sw.Dispose();
+
+                return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
             }
 
-            return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
+            request.Abort();
+
+            return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
         }
 
         // GET: UserPasswordMVC/Edit/5
         public ActionResult Edit(string id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", id));
+            HttpWebRequest request;
             HttpWebResponse response;
             StreamReader sr;
             clsJSONFormatter formatter = new clsJSONFormatter();
             Users users;
+                      
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", id));
             request.ContentType = "application/json";
             request.Accept = "application/json";
             request.Method = "GET";
@@ -121,16 +137,18 @@ namespace ConsorcioOnline.Controllers
 
             users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
 
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }            
             if (users == null)
             {
                 return HttpNotFound();
             }
 
-            return View(users);
+            ViewData["UserName"] = users.Nome;
+
+            request.Abort();
+            response.Close();
+            sr.Dispose();
+
+            return View();
         }
 
         // POST: UserPasswordMVC/Edit/5
@@ -138,15 +156,41 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Password,CreatedAt,UpdatedAt,Blocked")] UserPassword userPassword)
+        public ActionResult Edit([Bind(Include = "Id,Password,PasswordConfirm")] UserPassword userPassword)
         {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"], "/", Session["UserID"].ToString()));
+            HttpWebResponse response;
+            StreamWriter sw;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
             if (ModelState.IsValid)
             {
-                //db.Entry(userPassword).State = EntityState.Modified;
-                //db.SaveChanges();
-                return RedirectToAction("Index");
+                userPassword.Id = Session["UserID"].ToString();
+
+                strJSON = formatter.ClasstoJSON(userPassword);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "PUT";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                request.Abort();
+                response.Close();
+                sw.Dispose();
+
+                return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
             }
-            return View(userPassword);
+
+            request.Abort();
+
+            return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
         }
 
         //// GET: UserPasswordMVC/Delete/5

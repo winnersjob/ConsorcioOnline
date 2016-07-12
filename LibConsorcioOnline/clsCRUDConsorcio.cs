@@ -126,20 +126,31 @@ namespace LibConsorcioOnline
 
         public void insertUserPassword(tbUserPassword newPassword)
         {
+            tbUserPassword passCheck;
+
             try
             {
                 using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
                 {
-                    tbUserPassword password = new tbUserPassword();
-
-                    password.id_user = newPassword.id_user;
-                    password.de_password = returnSHA512String(newPassword.de_password);
-                    password.dt_create = DateTime.Now;
-                    password.bt_bloqueio = false;
-                    
-                    consorcio.tbUserPassword.Add(password);
-                    consorcio.SaveChanges();
+                     passCheck = consorcio.tbUserPassword.Where(p => p.id_user == newPassword.id_user).FirstOrDefault();
                 }
+
+                if(passCheck==null)
+                { 
+                    using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                    {
+                        tbUserPassword password = new tbUserPassword();
+
+                        password.id_user = newPassword.id_user;
+                        password.de_password = returnSHA512String(newPassword.de_password);
+                        password.dt_create = DateTime.Now;
+                        password.bt_bloqueio = false;
+
+                        consorcio.tbUserPassword.Add(password);
+                        consorcio.SaveChanges();
+                    }
+                }
+
             }
             catch (Exception ex)
             {

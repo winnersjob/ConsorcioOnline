@@ -24,6 +24,8 @@
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("New User","Create","UsersMVC",new { area="" },null)</li>
                     <li>@Html.ActionLink("User Detail","Details","UsersMVC", new { id = Session["UserID"] }, null)</li>
+                    <li>@Html.ActionLink("User Password", "Create", "UserPasswordMVC", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Update User Password", "Edit", "UserPasswordMVC", new { id = Session["UserID"] }, null)</li>
                 </ul>
             </div>
         </div>

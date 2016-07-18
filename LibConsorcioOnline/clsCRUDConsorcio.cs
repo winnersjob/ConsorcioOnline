@@ -339,6 +339,25 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
+        public tbCartaCredito readCartaCredito(Int64 idCarta)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbCartaCredito carta = consorcio.tbCartaCredito.Where(c => c.cd_cartacredito == idCarta).FirstOrDefault();
+                    return carta;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+                return null;
+            }
+        }
+
+
+
 
         public void insertAnexoCarta(tbAnexoCarta newAnexoCarta)
         {

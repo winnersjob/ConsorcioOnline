@@ -241,6 +241,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnexoCartaController.cs" />
     <Compile Include="Controllers\CartaController.cs" />
+    <Compile Include="Controllers\CartaCreditoMVCController.cs" />
     <Compile Include="Controllers\CompradorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PropostaCartaController.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AnexoCarta.cs" />
     <Compile Include="Models\CartaCredito.cs" />
+    <Compile Include="Models\clsJSONFormatter.cs" />
     <Compile Include="Models\PropostaCarta.cs" />
     <Compile Include="Models\QualificacaoComprador.cs" />
     <Compile Include="Models\QualificacaoVendedor.cs" />
@@ -334,6 +336,11 @@
     <Content Include="Views\UsersMVC\Index.cshtml" />
     <Content Include="Views\UserPasswordMVC\Create.cshtml" />
     <Content Include="Views\UserPasswordMVC\Edit.cshtml" />
+    <Content Include="Views\CartaCreditoMVC\Create.cshtml" />
+    <Content Include="Views\CartaCreditoMVC\Delete.cshtml" />
+    <Content Include="Views\CartaCreditoMVC\Details.cshtml" />
+    <Content Include="Views\CartaCreditoMVC\Edit.cshtml" />
+    <Content Include="Views\CartaCreditoMVC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,5 +31,7 @@ namespace ConsorcioOnline.Models
         }
 
         public System.Data.Entity.DbSet<ConsorcioOnline.Models.UserPassword> UserPasswords { get; set; }
+
+        public System.Data.Entity.DbSet<ConsorcioOnline.Models.CartaCredito> CartaCreditoes { get; set; }
     }
 }

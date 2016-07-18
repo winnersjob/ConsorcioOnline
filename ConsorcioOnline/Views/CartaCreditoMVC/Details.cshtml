@@ -1,0 +1,130 @@
+﻿@model ConsorcioOnline.Models.CartaCredito
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CartaCredito</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdVendedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdVendedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdmConsorcio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdmConsorcio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoConsorcio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoConsorcio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusCarta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusCarta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorCredito)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorCredito)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorEntrata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorEntrata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdParcelas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdParcelas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorParcela)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorParcela)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SaldoCarta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SaldoCarta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Indexador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Indexador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Honorarios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Honorarios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaxaJuros)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaxaJuros)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

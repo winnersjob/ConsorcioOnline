@@ -64,7 +64,6 @@
       <DependentUpon>ADOConsorcio.edmx</DependentUpon>
     </Compile>
     <Compile Include="clsCRUDConsorcio.cs" />
-    <Compile Include="clsJSONFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tbAdmConsorcio.cs">
       <DependentUpon>ADOConsorcio.tt</DependentUpon>

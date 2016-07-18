@@ -7,9 +7,9 @@ namespace ConsorcioOnline.Models
     public class CartaCredito
     {
         [Key]
-        public Int32 Id { get; set; }
+        public Int64 Id { get; set; }
         [Required]
-        public Int32 IdVendedor { get; set; }
+        public Int64 IdVendedor { get; set; }
         [Required]
         public int AdmConsorcio { get; set; }
         [Required]

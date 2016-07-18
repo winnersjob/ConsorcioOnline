@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 using System.IO;
 
-namespace LibConsorcioOnline
+namespace ConsorcioOnline.Models
 {
     public class clsJSONFormatter
     {

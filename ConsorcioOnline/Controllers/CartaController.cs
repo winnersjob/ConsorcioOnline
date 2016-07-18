@@ -17,11 +17,22 @@ namespace ConsorcioOnline.Controllers
         //    return new string[] { "value1", "value2" };
         //}
 
-        //// GET: api/Carta/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        // GET: api/Carta/5
+        public CartaCredito Get(Int64 id)
+        {
+            tbCartaCredito readCarta = new tbCartaCredito();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+            CartaCredito carta = new CartaCredito();
+
+            readCarta = CRUD.readCartaCredito(id);
+
+            carta.Id = readCarta.cd_cartacredito;
+            carta.IdVendedor = readCarta.cd_vendedor;
+            carta.AdmConsorcio = readCarta.cd_admconsorcio;
+            
+
+            return carta;
+        }
 
         // POST: api/Carta
         public void Post([FromBody]CartaCredito value)

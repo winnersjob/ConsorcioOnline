@@ -4,25 +4,11 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Pesquisa de Cartas</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
+
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.IdVendedor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdmConsorcio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoConsorcio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StatusCarta)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.Cidade)
         </th>
@@ -33,7 +19,7 @@
             @Html.DisplayNameFor(model => model.ValorCredito)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ValorEntrata)
+            @Html.DisplayNameFor(model => model.ValorEntrada)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.QtdParcelas)
@@ -56,20 +42,9 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@if(Model != null) { 
+    foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdVendedor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdmConsorcio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoConsorcio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatusCarta)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Cidade)
         </td>
@@ -80,7 +55,7 @@
             @Html.DisplayFor(modelItem => item.ValorCredito)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ValorEntrata)
+            @Html.DisplayFor(modelItem => item.ValorEntrada)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.QtdParcelas)
@@ -106,6 +81,7 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
+}
 }
 
 </table>

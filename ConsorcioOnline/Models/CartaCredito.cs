@@ -23,7 +23,7 @@ namespace ConsorcioOnline.Models
         [Required]
         public decimal ValorCredito { get; set; }
         [Required]
-        public decimal ValorEntrata { get; set; }
+        public decimal ValorEntrada { get; set; }
         [Required]
         public int QtdParcelas { get; set; }
         [Required]

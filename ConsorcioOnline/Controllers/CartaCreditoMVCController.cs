@@ -15,11 +15,11 @@ namespace ConsorcioOnline.Controllers
     public class CartaCreditoMVCController : Controller
     {
 
-        //// GET: CartaCreditoMVC
-        //public ActionResult Index()
-        //{
-        //    return View(db.CartaCreditoes.ToList());
-        //}
+        // GET: CartaCreditoMVC
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         //// GET: CartaCreditoMVC/Details/5
         //public ActionResult Details(int? id)

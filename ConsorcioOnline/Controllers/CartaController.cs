@@ -27,10 +27,21 @@ namespace ConsorcioOnline.Controllers
             readCarta = CRUD.readCartaCredito(id);
 
             carta.Id = readCarta.cd_cartacredito;
-            carta.IdVendedor = readCarta.cd_vendedor;
             carta.AdmConsorcio = readCarta.cd_admconsorcio;
+            carta.TipoConsorcio = readCarta.cd_tipoconsorcio;
+            carta.IdVendedor = readCarta.cd_vendedor;
+            carta.StatusCarta = readCarta.cd_statuscarta;
+            carta.Cidade = readCarta.de_cidade;
+            carta.UF= readCarta.de_uf;
+            carta.Indexador = readCarta.de_indexador;
+            carta.Honorarios=readCarta.nu_honorarios;
+            carta.QtdParcelas=readCarta.nu_qtd_parcelas;
+            carta.SaldoCarta=readCarta.nu_saldocarta;
+            carta.TaxaJuros=readCarta.nu_taxajuros;
+            carta.ValorCredito=readCarta.nu_valorcredito;
+            carta.ValorEntrada=readCarta.nu_valorentrada;
+            carta.ValorParcela=readCarta.nu_valorparcela;
             
-
             return carta;
         }
 
@@ -51,7 +62,7 @@ namespace ConsorcioOnline.Controllers
             newCarta.nu_saldocarta = value.SaldoCarta;
             newCarta.nu_taxajuros = value.TaxaJuros;
             newCarta.nu_valorcredito = value.ValorCredito;
-            newCarta.nu_valorentrada = value.ValorEntrata;
+            newCarta.nu_valorentrada = value.ValorEntrada;
             newCarta.nu_valorparcela = value.ValorParcela;
 
             CRUD.insertCartaCredito(newCarta);
@@ -76,7 +87,7 @@ namespace ConsorcioOnline.Controllers
             upCarta.nu_saldocarta = value.SaldoCarta;
             upCarta.nu_taxajuros = value.TaxaJuros;
             upCarta.nu_valorcredito = value.ValorCredito;
-            upCarta.nu_valorentrada = value.ValorEntrata;
+            upCarta.nu_valorentrada = value.ValorEntrada;
             upCarta.nu_valorparcela = value.ValorParcela;
 
             CRUD.updateCartaCredito(upCarta);

@@ -11,11 +11,46 @@ namespace ConsorcioOnline.Controllers
 {
     public class CartaController : ApiController
     {
-        //// GET: api/Carta
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // GET: api/Carta
+        public IEnumerable<CartaCredito> Post([FromBody]Models.Filter value)
+        {
+            List<tbCartaCredito> readCarta = new List<tbCartaCredito>();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+            List<CartaCredito> listCarta = new List<CartaCredito>();
+
+            readCarta = CRUD.readCartasCredito(value.ValorCreditoDe, value.ValorCreditoAte, value.IdUser);
+
+            if(readCarta.Count > 0 )
+            {
+                for (int i = 0;i < readCarta.Count;i++)
+                {
+                    CartaCredito carta = new CartaCredito();
+
+                    carta.Id = readCarta[i].cd_cartacredito;
+                    carta.IdVendedor = readCarta[i].cd_vendedor;
+                    carta.AdmConsorcio = readCarta[i].cd_admconsorcio;
+                    carta.TipoConsorcio = readCarta[i].cd_tipoconsorcio;
+                    carta.Cidade = readCarta[i].de_cidade;
+                    carta.Honorarios = readCarta[i].nu_honorarios;
+                    carta.Indexador = readCarta[i].de_indexador;
+                    carta.QtdParcelas = readCarta[i].nu_qtd_parcelas;
+                    carta.SaldoCarta = readCarta[i].nu_saldocarta;
+                    carta.StatusCarta = readCarta[i].cd_statuscarta;
+                    carta.TaxaJuros = readCarta[i].nu_taxajuros;
+                    carta.UF = readCarta[i].de_uf;
+                    carta.ValorCredito = readCarta[i].nu_valorcredito;
+                    carta.ValorEntrada = readCarta[i].nu_valorentrada;
+                    carta.ValorParcela = readCarta[i].nu_valorparcela;
+
+                    listCarta.Add(carta);
+
+                    carta = null;
+
+                }
+            }
+
+            return listCarta;
+        }
 
         // GET: api/Carta/5
         public CartaCredito Get(Int64 id)

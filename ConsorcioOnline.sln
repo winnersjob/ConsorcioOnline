@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsorcioOnline", "ConsorcioOnline\ConsorcioOnline.csproj", "{3BB08C76-D490-4194-A6C2-8AEFA286D1EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsorcioOnline.Tests", "ConsorcioOnline.Tests\ConsorcioOnline.Tests.csproj", "{FCF626EF-77A8-4D5D-A0DC-8C342B1D807C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibConsorcioOnline", "LibConsorcioOnline\LibConsorcioOnline.csproj", "{C71B22B8-E106-4980-813C-B80C6A86164C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsConsorcio", "ConsConsorcio\ConsConsorcio.csproj", "{8E4F40A9-0DEE-477D-820F-5D5237002B29}"
@@ -21,10 +19,6 @@ Global
 		{3BB08C76-D490-4194-A6C2-8AEFA286D1EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BB08C76-D490-4194-A6C2-8AEFA286D1EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BB08C76-D490-4194-A6C2-8AEFA286D1EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCF626EF-77A8-4D5D-A0DC-8C342B1D807C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCF626EF-77A8-4D5D-A0DC-8C342B1D807C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCF626EF-77A8-4D5D-A0DC-8C342B1D807C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCF626EF-77A8-4D5D-A0DC-8C342B1D807C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C71B22B8-E106-4980-813C-B80C6A86164C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C71B22B8-E106-4980-813C-B80C6A86164C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C71B22B8-E106-4980-813C-B80C6A86164C}.Release|Any CPU.ActiveCfg = Release|Any CPU

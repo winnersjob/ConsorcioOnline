@@ -11,7 +11,10 @@ namespace ConsorcioOnline.Models
     {        
         [Key]
         [DataMember]
-        public string Id { get; set;}        
+        public string Id { get; set;}
+        [Required]
+        [DataMember]
+        public string UserName { get; set; }        
         [Required]
         [DataMember]
         public string Nome { get; set; }

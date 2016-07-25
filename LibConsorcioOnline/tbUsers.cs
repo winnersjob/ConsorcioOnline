@@ -28,6 +28,7 @@ namespace LibConsorcioOnline
         public string cd_cnpj { get; set; }
         public string cd_ie { get; set; }
         public int bit_bloqueio { get; set; }
+        public string de_username { get; set; }
     
         public virtual ICollection<tbComprador> tbComprador { get; set; }
         public virtual tbFisicaJuridica tbFisicaJuridica { get; set; }

@@ -32,15 +32,16 @@ namespace LibConsorcioOnline
             }
         }
 
-        public void insertUser(tbUsers newUser)
+        public tbUsers insertUser(tbUsers newUser)
         {
+            tbUsers user = new tbUsers();
+
             try
             {
                 using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
                 {
-                    tbUsers user = new tbUsers();
-
                     user.id_user = Guid.NewGuid().ToString();
+                    user.de_username = newUser.de_username;
                     user.nm_user = newUser.nm_user;
                     user.nm_apelido = newUser.nm_apelido;                    
                     user.cd_fisjur = newUser.cd_fisjur;
@@ -52,6 +53,9 @@ namespace LibConsorcioOnline
                     consorcio.tbUsers.Add(user);
                     consorcio.SaveChanges();
                 }
+
+                return user;
+
             }
             catch(Exception ex)
             {
@@ -123,6 +127,24 @@ namespace LibConsorcioOnline
 
             return user;
         }
+        public string readIdUser(string sUserName)
+        {
+            tbUsers user;
+
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    user = consorcio.tbUsers.Where(u => u.de_username == sUserName).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return user.id_user;
+        }
 
         public void insertUserPassword(tbUserPassword newPassword)
         {
@@ -184,7 +206,36 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
-        
+        public bool validateUserPassword(tbUserPassword validatePassword)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbUserPassword password = consorcio.tbUserPassword.Where(p => p.id_user == validatePassword.id_user & 
+                                                                                  p.de_password == returnSHA512String(validatePassword.de_password) ).FirstOrDefault();
+
+                    if(password == null)
+                    {
+                        return false;
+                    }
+
+                    if(password.bt_bloqueio == true)
+                    {
+                        return false;
+                    }
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return true;
+        }
+
+
         public void insertComprador(tbComprador newComprador)
         {
             try
@@ -352,10 +403,34 @@ namespace LibConsorcioOnline
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-                return null;
             }
         }
+        public List<tbCartaCredito> readCartasCredito(decimal valorCreditoDe=0, decimal valorCreditoAte=0, string idUser="")
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
 
+                    string strQuery = "";
+
+                    strQuery = string.Concat("SELECT * FROM tbCartaCredito WHERE NU_VALORCREDITO >= ",valorCreditoDe.ToString(), " AND NU_VALORCREDITO <= ",valorCreditoAte.ToString()) ;
+
+                    if (idUser !="")
+                    {
+                        string.Concat(strQuery, " AND CD_VENDEDOR = (SELECT CD_VENDEDOR FROM tbVendedor WHERE ID_USER = '", idUser,"'");
+                    }
+
+                    List<tbCartaCredito> carta = consorcio.tbCartaCredito.SqlQuery(strQuery).ToList();
+
+                    return carta;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
 
 

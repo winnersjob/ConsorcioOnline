@@ -16,18 +16,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Sistema de Consorcio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("New User","Create","UsersMVC",new { area="" },null)</li>
-                    <li>@Html.ActionLink("User Detail","Details","UsersMVC", new { id = Session["UserID"] }, null)</li>
-                    <li>@Html.ActionLink("User Password", "Create", "UserPasswordMVC", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("Update User Password", "Edit", "UserPasswordMVC", new { id = Session["UserID"] }, null)</li>
-                    <li>@Html.ActionLink("Create Carta","Create","CartaCreditoMVC",new { area=""},null) </li>
-                    <li>@Html.ActionLink("Index Carta","Index","CartaCreditoMVC", new { area = "" },null)</li>
+                    @if(Session["LoginUser"] == null)
+                    { 
+                    <li>@Html.ActionLink("New User", "Create", "UsersMVC", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Login", "Login", "Home", new { area = "" }, null)</li>
+                    }
+                    else
+                    { 
+                    <li>@Html.ActionLink("Meus Dados","Details","UsersMVC", new { id = Session["UserID"] }, null)</li>
+                    <li>@Html.ActionLink("Minhas Cartas", "Index", "CartaCreditoMVC", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Incluir Carta", "Create", "CartaCreditoMVC", new { area = "" }, null) </li>
+                    <li>@Html.ActionLink("Redefinir Senha", "Edit", "UserPasswordMVC", new { id = Session["UserID"] }, null)</li>                                        
+                    }
                 </ul>
             </div>
         </div>

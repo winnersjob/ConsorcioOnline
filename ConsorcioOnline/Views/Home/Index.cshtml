@@ -1,8 +1,32 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿@model ConsorcioOnline.Models.Filter
+
+@using (Html.BeginForm()) { 
+    @Html.AntiForgeryToken()
+<div class="jumbotron">
+    <div class="form-group">
+        <table>
+            <tr>
+                <th colspan="3">
+                    Valor do Crédito
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.ValorCreditoDe)
+                    @Html.EditorFor(model => model.ValorCreditoDe)
+                </td>
+                <td>
+                    @Html.LabelFor(model => model.ValorCreditoAte)
+                    @Html.EditorFor(model => model.ValorCreditoAte)
+                </td>
+                <td>
+                    <input type="submit" value="Pesquisar" class="btn btn-default" />
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
+}
 <div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>

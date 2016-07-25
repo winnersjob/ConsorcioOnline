@@ -38,9 +38,9 @@ namespace ConsorcioOnline.Controllers
         //}
 
         // GET: UserPasswordMVC/Create
-        public ActionResult Create()
+        public ActionResult Create(string id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", Session["UserID"].ToString()));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", id));
             HttpWebResponse response;
             StreamReader sr;
             clsJSONFormatter formatter = new clsJSONFormatter();

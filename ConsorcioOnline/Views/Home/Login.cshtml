@@ -1,0 +1,46 @@
+﻿@model ConsorcioOnline.Models.LoginUser
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 style="text-align:center">Login</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="border-style:solid; border-color:gray">
+        <table align="center">
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.UserName)                    
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.UserName)                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password)                    
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Login" class="btn btn-default" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
+}

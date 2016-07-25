@@ -18,23 +18,51 @@ namespace ConsorcioOnline.Controllers
         // GET: CartaCreditoMVC
         public ActionResult Index()
         {
-            return View();
+            Models.Filter filter = new Models.Filter();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLCarta"]);
+            HttpWebResponse response;
+            StreamWriter sw;
+            StreamReader sr;
+            string strJSON = "";
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            List<CartaCredito> carta = new List<CartaCredito>();
+
+            if (Session["Filters"] != null)
+            {
+                filter = (Models.Filter)Session["Filters"];
+
+                strJSON = formatter.ClasstoJSON(filter);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "POST";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+                sr = new StreamReader(response.GetResponseStream());
+
+                carta = (List<CartaCredito>)formatter.JSONtoClass(sr.ReadToEnd(), new List<CartaCredito>());
+
+            }
+
+            return View(carta);
         }
 
-        //// GET: CartaCreditoMVC/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    CartaCredito cartaCredito = db.CartaCreditoes.Find(id);
-        //    if (cartaCredito == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(cartaCredito);
-        //}
+        // GET: CartaCreditoMVC/Details/5
+        public ActionResult Details(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
+            
+            return View();
+        }
 
         // GET: CartaCreditoMVC/Create
         public ActionResult Create()

@@ -17,14 +17,7 @@ namespace ConsorcioOnline.Controllers
     public class UsersMVCController : Controller
     {
 
-        //// GET: UsersMVC
-        //public ActionResult Index()
-        //{
-        //    return View(db.Users.ToList());
-        //}
-
-        // GET: UsersMVC/Details/5
-
+        // GET: UsersMVC/Details/xxxxxx
         public ActionResult Details(string id)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"],"/",id));
@@ -66,13 +59,12 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nome,Apelido,FisJur,CPF,CNPJ,IE")] Users users)
+        public ActionResult Create([Bind(Include = "UserName,Nome,Apelido,FisJur,CPF,CNPJ,IE")] Users users)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUser"]);
             HttpWebResponse response;
             StreamReader sr;
             StreamWriter sw;
-            MemoryStream ms;
             clsJSONFormatter formatter = new clsJSONFormatter();
             string strJSON = "";
 
@@ -90,11 +82,13 @@ namespace ConsorcioOnline.Controllers
                 sw.Flush();
 
                 response = (HttpWebResponse)request.GetResponse();
+                sr = new StreamReader(response.GetResponseStream());
+                users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
 
-                return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
+                return RedirectToAction("Create", "UserPasswordMVC",new { id = users.Id});
             }
 
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Create", "UserPasswordMVC");
         }
 
         // GET: UsersMVC/Edit/5
@@ -163,32 +157,6 @@ namespace ConsorcioOnline.Controllers
             }
             return View(users);
         }
-
-        //// GET: UsersMVC/Delete/5
-        //public ActionResult Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Users users = db.Users.Find(id);
-        //    if (users == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(users);
-        //}
-
-        //// POST: UsersMVC/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(string id)
-        //{
-        //    Users users = db.Users.Find(id);
-        //    db.Users.Remove(users);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

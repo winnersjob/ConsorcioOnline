@@ -260,7 +260,8 @@
     <Compile Include="Models\AnexoCarta.cs" />
     <Compile Include="Models\CartaCredito.cs" />
     <Compile Include="Models\clsJSONFormatter.cs" />
-    <Compile Include="Models\Filters.cs" />
+    <Compile Include="Models\Filter.cs" />
+    <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Models\PropostaCarta.cs" />
     <Compile Include="Models\QualificacaoComprador.cs" />
     <Compile Include="Models\QualificacaoVendedor.cs" />
@@ -342,7 +343,7 @@
     <Content Include="Views\CartaCreditoMVC\Details.cshtml" />
     <Content Include="Views\CartaCreditoMVC\Edit.cshtml" />
     <Content Include="Views\CartaCreditoMVC\Index.cshtml" />
-    <Content Include="Views\CartaCreditoMVC\Filters.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

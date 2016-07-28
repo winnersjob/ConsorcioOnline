@@ -212,8 +212,10 @@ namespace LibConsorcioOnline
             {
                 using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
                 {
+                    validatePassword.de_password = returnSHA512String(validatePassword.de_password);
+
                     tbUserPassword password = consorcio.tbUserPassword.Where(p => p.id_user == validatePassword.id_user & 
-                                                                                  p.de_password == returnSHA512String(validatePassword.de_password) ).FirstOrDefault();
+                                                                                  p.de_password == validatePassword.de_password ).FirstOrDefault();
 
                     if(password == null)
                     {

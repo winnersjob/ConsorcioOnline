@@ -9,50 +9,59 @@ using LibConsorcioOnline;
 
 namespace ConsorcioOnline.Controllers
 {
+    [RoutePrefix("api/comprador")]
     public class CompradorController : ApiController
     {
-        //// GET: api/Comprador
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/Comprador/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST: api/Comprador
-        public void Post([FromBody]Comprador value)
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]Comprador value)
         {
             tbComprador newComprador = new tbComprador();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            newComprador.id_user = value.IdUser;            
+            try
+            {
+                newComprador.id_user = value.IdUser;
 
-            CRUD.insertComprador(newComprador);
+                CRUD.insertComprador(newComprador);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+
         }
 
         // PUT: api/Comprador/5
-        public void Put(long id, [FromBody]Comprador value)
+        [Route("{id:long}")]
+        [HttpPut]
+        public HttpResponseMessage Put(long id, [FromBody]Comprador value)
         {
             tbComprador upComprador = new tbComprador();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            upComprador.cd_comprador = id;
-            upComprador.id_user = value.IdUser;
-            upComprador.nu_qual_negativa = value.NegativeFeedback;
-            upComprador.nu_qual_positiva = value.PositiveFeedback;
-            upComprador.bt_bloqueado = value.Blocked;
+            try
+            {
+                upComprador.cd_comprador = id;
+                upComprador.id_user = value.IdUser;
+                upComprador.nu_qual_negativa = value.NegativeFeedback;
+                upComprador.nu_qual_positiva = value.PositiveFeedback;
+                upComprador.bt_bloqueado = value.Blocked;
 
-            CRUD.updateComprador(upComprador);
+                CRUD.updateComprador(upComprador);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }            
         
         }
 
-        //// DELETE: api/Comprador/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

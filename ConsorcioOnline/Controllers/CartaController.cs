@@ -9,9 +9,12 @@ using LibConsorcioOnline;
 
 namespace ConsorcioOnline.Controllers
 {
+    [RoutePrefix("api/carta")]
     public class CartaController : ApiController
     {
         // GET: api/Carta
+        [Route("~/api/carta/list")]
+        [HttpPost]
         public IEnumerable<CartaCredito> Post([FromBody]Models.Filter value)
         {
             List<tbCartaCredito> readCarta = new List<tbCartaCredito>();
@@ -53,57 +56,84 @@ namespace ConsorcioOnline.Controllers
         }
 
         // GET: api/Carta/5
-        public CartaCredito Get(Int64 id)
+        [Route("{id:long}")]
+        [HttpGet]
+        public HttpResponseMessage Get(Int64 id)
         {
             tbCartaCredito readCarta = new tbCartaCredito();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
             CartaCredito carta = new CartaCredito();
 
-            readCarta = CRUD.readCartaCredito(id);
+            try
+            { 
 
-            carta.Id = readCarta.cd_cartacredito;
-            carta.AdmConsorcio = readCarta.cd_admconsorcio;
-            carta.TipoConsorcio = readCarta.cd_tipoconsorcio;
-            carta.IdVendedor = readCarta.cd_vendedor;
-            carta.StatusCarta = readCarta.cd_statuscarta;
-            carta.Cidade = readCarta.de_cidade;
-            carta.UF= readCarta.de_uf;
-            carta.Indexador = readCarta.de_indexador;
-            carta.Honorarios=readCarta.nu_honorarios;
-            carta.QtdParcelas=readCarta.nu_qtd_parcelas;
-            carta.SaldoCarta=readCarta.nu_saldocarta;
-            carta.TaxaJuros=readCarta.nu_taxajuros;
-            carta.ValorCredito=readCarta.nu_valorcredito;
-            carta.ValorEntrada=readCarta.nu_valorentrada;
-            carta.ValorParcela=readCarta.nu_valorparcela;
-            
-            return carta;
+                readCarta = CRUD.readCartaCredito(id);
+
+                carta.Id = readCarta.cd_cartacredito;
+                carta.AdmConsorcio = readCarta.cd_admconsorcio;
+                carta.TipoConsorcio = readCarta.cd_tipoconsorcio;
+                carta.IdVendedor = readCarta.cd_vendedor;
+                carta.StatusCarta = readCarta.cd_statuscarta;
+                carta.Cidade = readCarta.de_cidade;
+                carta.UF= readCarta.de_uf;
+                carta.Indexador = readCarta.de_indexador;
+                carta.Honorarios=readCarta.nu_honorarios;
+                carta.QtdParcelas=readCarta.nu_qtd_parcelas;
+                carta.SaldoCarta=readCarta.nu_saldocarta;
+                carta.TaxaJuros=readCarta.nu_taxajuros;
+                carta.ValorCredito=readCarta.nu_valorcredito;
+                carta.ValorEntrada=readCarta.nu_valorentrada;
+                carta.ValorParcela=readCarta.nu_valorparcela;
+
+                return this.Request.CreateResponse(HttpStatusCode.OK, carta);
+
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+           
         }
 
         // POST: api/Carta
-        public void Post([FromBody]CartaCredito value)
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]CartaCredito value)
         {
             tbCartaCredito newCarta = new tbCartaCredito();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            newCarta.cd_admconsorcio = value.AdmConsorcio;
-            newCarta.cd_tipoconsorcio = value.TipoConsorcio;
-            newCarta.cd_vendedor = value.IdVendedor;
-            newCarta.de_cidade = value.Cidade;
-            newCarta.de_uf = value.UF;
-            newCarta.de_indexador = value.Indexador;
-            newCarta.nu_honorarios = value.Honorarios;
-            newCarta.nu_qtd_parcelas = value.QtdParcelas;
-            newCarta.nu_saldocarta = value.SaldoCarta;
-            newCarta.nu_taxajuros = value.TaxaJuros;
-            newCarta.nu_valorcredito = value.ValorCredito;
-            newCarta.nu_valorentrada = value.ValorEntrada;
-            newCarta.nu_valorparcela = value.ValorParcela;
+            try
+            {
+                newCarta.cd_admconsorcio = value.AdmConsorcio;
+                newCarta.cd_tipoconsorcio = value.TipoConsorcio;
+                newCarta.cd_vendedor = value.IdVendedor;
+                newCarta.de_cidade = value.Cidade;
+                newCarta.de_uf = value.UF;
+                newCarta.de_indexador = value.Indexador;
+                newCarta.nu_honorarios = value.Honorarios;
+                newCarta.nu_qtd_parcelas = value.QtdParcelas;
+                newCarta.nu_saldocarta = value.SaldoCarta;
+                newCarta.nu_taxajuros = value.TaxaJuros;
+                newCarta.nu_valorcredito = value.ValorCredito;
+                newCarta.nu_valorentrada = value.ValorEntrada;
+                newCarta.nu_valorparcela = value.ValorParcela;
 
-            CRUD.insertCartaCredito(newCarta);
+                CRUD.insertCartaCredito(newCarta);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+
+            }
+            catch (Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+                        
         }
 
         // PUT: api/Carta/5
+        [Route("{id:long}")]
+        [HttpPut]
         public void Put(long id, [FromBody]CartaCredito value)
         {
             tbCartaCredito upCarta = new tbCartaCredito();
@@ -128,9 +158,5 @@ namespace ConsorcioOnline.Controllers
             CRUD.updateCartaCredito(upCarta);
         }
 
-        //// DELETE: api/Carta/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

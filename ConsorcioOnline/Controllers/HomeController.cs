@@ -12,6 +12,8 @@ namespace ConsorcioOnline.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
+        [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
@@ -44,35 +46,62 @@ namespace ConsorcioOnline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Include ="Username, Password")] LoginUser login)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUser"]);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLLogin"]);
             HttpWebResponse response;
             StreamWriter sw;
             StreamReader sr;
             string strJSON = "";
             clsJSONFormatter formatter = new clsJSONFormatter();
 
-            if(ModelState.IsValid)
+
+            try
             {
-                strJSON = formatter.ClasstoJSON(login);
-
-                sw = new StreamWriter(request.GetRequestStream());
-                sw.Write(strJSON);
-                sw.Flush();
-
-                response = (HttpWebResponse)request.GetResponse();
-                sr = new StreamReader(response.GetResponseStream());
-
-                if (Session["LoginUser"] != null)
+                            
+                if(ModelState.IsValid)
                 {
-                    Session.Remove("LoginUser");
+                    strJSON = formatter.ClasstoJSON(login);
+
+                    request.ContentType = "application/json";
+                    request.Accept = "application/json";
+                    request.Method = "POST";
+                    request.KeepAlive = false;
+
+                    sw = new StreamWriter(request.GetRequestStream());
+                    sw.Write(strJSON);
+                    sw.Flush();
+
+                    response = (HttpWebResponse)request.GetResponse();
+                    sr = new StreamReader(response.GetResponseStream());
+
+                    if (Session["LoginUser"] != null)
+                    {
+                        Session.Remove("LoginUser");
+                    }
+
+                    login = (LoginUser)formatter.JSONtoClass(sr.ReadToEnd(), new LoginUser());
+                    login.Password = "";
+
+                    Session.Add("LoginUser", login.Id);
+                
                 }
-                
-                Session.Add("LoginUser", (LoginUser)formatter.JSONtoClass(sr.ReadToEnd(),new LoginUser()));
-                
+
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
 
-            return RedirectToAction("Index", "Home");
+        }
 
+        public ActionResult LogOut()
+        {
+            if(Session["LoginUser"] != null)
+            {
+                Session.Remove("LoginUser");                
+            }
+
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
     }

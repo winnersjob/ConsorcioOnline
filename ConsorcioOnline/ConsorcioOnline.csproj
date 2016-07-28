@@ -244,6 +244,7 @@
     <Compile Include="Controllers\CartaCreditoMVCController.cs" />
     <Compile Include="Controllers\CompradorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PropostaCartaController.cs" />
     <Compile Include="Controllers\QualificacaoCompradorController.cs" />
     <Compile Include="Controllers\QualificacaoVendedorController.cs" />

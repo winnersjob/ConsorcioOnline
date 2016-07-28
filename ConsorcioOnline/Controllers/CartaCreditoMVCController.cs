@@ -19,7 +19,7 @@ namespace ConsorcioOnline.Controllers
         public ActionResult Index()
         {
             Models.Filter filter = new Models.Filter();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLCarta"]);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLCarta"],"/List"));
             HttpWebResponse response;
             StreamWriter sw;
             StreamReader sr;

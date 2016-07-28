@@ -27,10 +27,11 @@
                     }
                     else
                     { 
-                    <li>@Html.ActionLink("Meus Dados","Details","UsersMVC", new { id = Session["UserID"] }, null)</li>
+                    <li>@Html.ActionLink("Meus Dados","Details","UsersMVC", new { id = Session["LoginUser"] }, null)</li>
                     <li>@Html.ActionLink("Minhas Cartas", "Index", "CartaCreditoMVC", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Incluir Carta", "Create", "CartaCreditoMVC", new { area = "" }, null) </li>
-                    <li>@Html.ActionLink("Redefinir Senha", "Edit", "UserPasswordMVC", new { id = Session["UserID"] }, null)</li>                                        
+                    <li>@Html.ActionLink("Redefinir Senha", "Edit", "UserPasswordMVC", new { id = Session["LoginUser"] }, null)</li>
+                    <li>@Html.ActionLink("LogOut","Logout","Home",new { area = ""})</li>                                       
                     }
                 </ul>
             </div>

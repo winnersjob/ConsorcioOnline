@@ -16,27 +16,6 @@ namespace ConsorcioOnline.Controllers
     public class UserPasswordMVCController : Controller
     {        
 
-        //// GET: UserPasswordMVC
-        //public ActionResult Index()
-        //{
-        //    return View(db.UserPasswords.ToList());
-        //}
-
-        //// GET: UserPasswordMVC/Details/5
-        //public ActionResult Details(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    UserPassword userPassword = db.UserPasswords.Find(id);
-        //    if (userPassword == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(userPassword);
-        //}
-
         // GET: UserPasswordMVC/Create
         public ActionResult Create(string id)
         {
@@ -75,9 +54,9 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Password,PasswordConfirm")] UserPassword userPassword)
+        public ActionResult Create([Bind(Include = "Id,Password,PasswordConfirm")] UserPassword userPassword)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"],"/",Session["UserID"].ToString()));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"],"/",userPassword.Id));
             HttpWebResponse response;
             StreamWriter sw;
             clsJSONFormatter formatter = new clsJSONFormatter();
@@ -85,8 +64,6 @@ namespace ConsorcioOnline.Controllers
 
             if (ModelState.IsValid)
             {
-                userPassword.Id = Session["UserID"].ToString();
-
                 strJSON = formatter.ClasstoJSON(userPassword);
 
                 request.ContentType = "application/json";
@@ -104,12 +81,12 @@ namespace ConsorcioOnline.Controllers
                 response.Close();
                 sw.Dispose();
 
-                return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
+                return RedirectToAction("Details", "UsersMVC", new { id = userPassword.Id });
             }
 
             request.Abort();
 
-            return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
+            return RedirectToAction("Details", "UsersMVC", new { id = userPassword.Id });
         }
 
         // GET: UserPasswordMVC/Edit/5
@@ -158,7 +135,7 @@ namespace ConsorcioOnline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Password,PasswordConfirm")] UserPassword userPassword)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"], "/", Session["UserID"].ToString()));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"], "/", userPassword.Id));
             HttpWebResponse response;
             StreamWriter sw;
             clsJSONFormatter formatter = new clsJSONFormatter();
@@ -192,32 +169,6 @@ namespace ConsorcioOnline.Controllers
 
             return RedirectToAction("Details", "UsersMVC", new { id = Session["UserID"].ToString() });
         }
-
-        //// GET: UserPasswordMVC/Delete/5
-        //public ActionResult Delete(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    UserPassword userPassword = db.UserPasswords.Find(id);
-        //    if (userPassword == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(userPassword);
-        //}
-
-        //// POST: UserPasswordMVC/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(string id)
-        //{
-        //    UserPassword userPassword = db.UserPasswords.Find(id);
-        //    db.UserPasswords.Remove(userPassword);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
 
         protected override void Dispose(bool disposing)
         {

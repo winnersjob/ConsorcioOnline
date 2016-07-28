@@ -9,49 +9,59 @@ using LibConsorcioOnline;
 
 namespace ConsorcioOnline.Controllers
 {
+    [RoutePrefix("api/vendedor")]
     public class VendedorController : ApiController
     {
-        //// GET: api/Vendedor
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/Vendedor/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST: api/Vendedor
-        public void Post([FromBody]Vendedor value)
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]Vendedor value)
         {
             tbVendedor newVendedor = new tbVendedor();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            newVendedor.id_user = value.IdUser;
+            try
+            {
+                newVendedor.id_user = value.IdUser;
 
-            CRUD.insertVendedor(newVendedor);
+                CRUD.insertVendedor(newVendedor);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest,ex.Message);
+            }
+                        
         }
 
         // PUT: api/Vendedor/5
-        public void Put(long id, [FromBody]Vendedor value)
+        [Route("{id:long}")]
+        [HttpPut]
+        public HttpResponseMessage Put(long id, [FromBody]Vendedor value)
         {
             tbVendedor upVendedor = new tbVendedor();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            upVendedor.cd_vendedor = id;
-            upVendedor.id_user = value.IdUser;
-            upVendedor.nu_qual_negativa = value.NegativeFeedback;
-            upVendedor.nu_qual_positiva = value.PositiveFeedback;
-            upVendedor.bt_bloqueado = value.Blocked;
+            try
+            {
+                upVendedor.cd_vendedor = id;
+                upVendedor.id_user = value.IdUser;
+                upVendedor.nu_qual_negativa = value.NegativeFeedback;
+                upVendedor.nu_qual_positiva = value.PositiveFeedback;
+                upVendedor.bt_bloqueado = value.Blocked;
 
-            CRUD.updateVendedor(upVendedor);
+                CRUD.updateVendedor(upVendedor);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+                        
         }
 
-        //// DELETE: api/Vendedor/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

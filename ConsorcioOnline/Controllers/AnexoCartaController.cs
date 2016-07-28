@@ -9,48 +9,58 @@ using LibConsorcioOnline;
 
 namespace ConsorcioOnline.Controllers
 {
+    [RoutePrefix("api/anexocarta")]
     public class AnexoCartaController : ApiController
     {
-        //// GET: api/AnexoCarta
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/AnexoCarta/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST: api/AnexoCarta
-        public void Post([FromBody]AnexoCarta value)
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]AnexoCarta value)
         {
             tbAnexoCarta newAnexo = new tbAnexoCarta();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            newAnexo.cd_cartacredito = value.IdCarta;
-            newAnexo.de_linkanexo = value.LinkAnexo;
+            try
+            {
+                newAnexo.cd_cartacredito = value.IdCarta;
+                newAnexo.de_linkanexo = value.LinkAnexo;
 
-            CRUD.insertAnexoCarta(newAnexo);
+                CRUD.insertAnexoCarta(newAnexo);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest,ex.Message);
+            }
+            
         }
 
         // PUT: api/AnexoCarta/5
-        public void Put(string id, [FromBody]AnexoCarta value)
+        [Route("api/anexocarta/{id}")]
+        [HttpPut]
+        public HttpResponseMessage Put(string id, [FromBody]AnexoCarta value)
         {
             tbAnexoCarta upAnexo = new tbAnexoCarta();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            upAnexo.id_anexo = id;
-            upAnexo.cd_cartacredito = value.IdCarta;
-            upAnexo.de_linkanexo = value.LinkAnexo;
+            try
+            {
+                upAnexo.id_anexo = id;
+                upAnexo.cd_cartacredito = value.IdCarta;
+                upAnexo.de_linkanexo = value.LinkAnexo;
 
-            CRUD.updateAnexoCarta(upAnexo);
+                CRUD.updateAnexoCarta(upAnexo);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+
         }
 
-        //// DELETE: api/AnexoCarta/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

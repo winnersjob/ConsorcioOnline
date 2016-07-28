@@ -9,52 +9,62 @@ using LibConsorcioOnline;
 
 namespace ConsorcioOnline.Controllers
 {
+    [RoutePrefix("api/propostacarta")]
     public class PropostaCartaController : ApiController
     {
-        //// GET: api/PropostaCarta
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/PropostaCarta/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST: api/PropostaCarta
-        public void Post([FromBody]PropostaCarta value)
+        [Route("")]
+        [HttpPost]
+        public HttpResponseMessage Post([FromBody]PropostaCarta value)
         {
             tbPropostaCarta newPropostaCarta = new tbPropostaCarta();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            newPropostaCarta.cd_cartacredito = value.IdCarta;
-            newPropostaCarta.cd_comprador = value.IdComprador;
-            newPropostaCarta.cd_vendedor = value.IdVendedor;
-            newPropostaCarta.de_mensagemproposta = value.MensagemProposta;
+            try
+            {
+                newPropostaCarta.cd_cartacredito = value.IdCarta;
+                newPropostaCarta.cd_comprador = value.IdComprador;
+                newPropostaCarta.cd_vendedor = value.IdVendedor;
+                newPropostaCarta.de_mensagemproposta = value.MensagemProposta;
 
-            CRUD.insertPropostaCarta(newPropostaCarta);
+                CRUD.insertPropostaCarta(newPropostaCarta);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest,ex.Message);
+            }
+            
         }
 
         // PUT: api/PropostaCarta/5
-        public void Put(long id, [FromBody]PropostaCarta value)
+        [Route("{id:long}")]
+        [HttpPut]
+        public HttpResponseMessage Put(long id, [FromBody]PropostaCarta value)
         {
             tbPropostaCarta upPropostaCarta = new tbPropostaCarta();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
 
-            upPropostaCarta.cd_propostacarta = id;
-            upPropostaCarta.cd_cartacredito = value.IdCarta;
-            upPropostaCarta.cd_comprador = value.IdComprador;
-            upPropostaCarta.cd_vendedor = value.IdVendedor;
-            upPropostaCarta.de_mensagemproposta = value.MensagemProposta;
+            try
+            {
+                upPropostaCarta.cd_propostacarta = id;
+                upPropostaCarta.cd_cartacredito = value.IdCarta;
+                upPropostaCarta.cd_comprador = value.IdComprador;
+                upPropostaCarta.cd_vendedor = value.IdVendedor;
+                upPropostaCarta.de_mensagemproposta = value.MensagemProposta;
 
-            CRUD.updatePropostaCarta(upPropostaCarta);
+                CRUD.updatePropostaCarta(upPropostaCarta);
+
+                return this.Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest,ex.Message);
+            }
+            
         }
 
-        //// DELETE: api/PropostaCarta/5
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

@@ -67,6 +67,8 @@ namespace ConsorcioOnline.Controllers
             StreamWriter sw;
             clsJSONFormatter formatter = new clsJSONFormatter();
             string strJSON = "";
+            Vendedor vendedor;
+            Comprador comprador;
 
             if (ModelState.IsValid)
             {
@@ -84,6 +86,46 @@ namespace ConsorcioOnline.Controllers
                 response = (HttpWebResponse)request.GetResponse();
                 sr = new StreamReader(response.GetResponseStream());
                 users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sw.Close();
+                sw.Dispose();
+                sr.Close();
+                sr.Dispose();
+
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLVendedor"]);
+
+                vendedor = new Vendedor();
+                vendedor.IdUser = users.Id;
+
+                strJSON = formatter.ClasstoJSON(vendedor);
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sw.Close();
+                sw.Dispose();
+
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLComprador"]);
+
+                comprador = new Comprador();
+                comprador.IdUser = users.Id;
+
+                strJSON = formatter.ClasstoJSON(comprador);
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
 
                 return RedirectToAction("Create", "UserPasswordMVC",new { id = users.Id});
             }

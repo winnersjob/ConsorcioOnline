@@ -246,6 +246,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PropostaCartaController.cs" />
+    <Compile Include="Controllers\PropostaCartaMVCController.cs" />
     <Compile Include="Controllers\QualificacaoCompradorController.cs" />
     <Compile Include="Controllers\QualificacaoVendedorController.cs" />
     <Compile Include="Controllers\UserPasswordController.cs" />
@@ -340,11 +341,14 @@
     <Content Include="Views\UserPasswordMVC\Create.cshtml" />
     <Content Include="Views\UserPasswordMVC\Edit.cshtml" />
     <Content Include="Views\CartaCreditoMVC\Create.cshtml" />
-    <Content Include="Views\CartaCreditoMVC\Delete.cshtml" />
     <Content Include="Views\CartaCreditoMVC\Details.cshtml" />
     <Content Include="Views\CartaCreditoMVC\Edit.cshtml" />
     <Content Include="Views\CartaCreditoMVC\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\PropostaCartaMVC\Create.cshtml" />
+    <Content Include="Views\PropostaCartaMVC\Details.cshtml" />
+    <Content Include="Views\PropostaCartaMVC\Edit.cshtml" />
+    <Content Include="Views\PropostaCartaMVC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,20 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace ConsorcioOnline.Models
 {
+    [DataContract]
     public class Comprador
     {
+        [DataMember]
         [Key]
-        public Int32 Id { get; set; }
+        public long Id { get; set; }
+        [DataMember]
         [Required]
-        public string IdUser { get; set; }        
-        public DateTime CreatedAt { get; set; }
+        public string IdUser { get; set; }
+        [DataMember]
+        public string  CreatedAt { get; set; }
+        [DataMember]
         [Required]
-        public Int32 PositiveFeedback { get; set; }
+        public long PositiveFeedback { get; set; }
+        [DataMember]
         [Required]
-        public Int32 NegativeFeedback { get; set; }
+        public long NegativeFeedback { get; set; }
+        [DataMember]
         public bool Blocked { get; set; }
     }
 }

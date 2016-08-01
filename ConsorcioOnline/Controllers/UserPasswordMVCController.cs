@@ -56,7 +56,7 @@ namespace ConsorcioOnline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Password,PasswordConfirm")] UserPassword userPassword)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUserPassword"],"/",userPassword.Id));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUserPassword"]);
             HttpWebResponse response;
             StreamWriter sw;
             clsJSONFormatter formatter = new clsJSONFormatter();

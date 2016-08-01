@@ -14,7 +14,7 @@ namespace ConsorcioOnline.Controllers
     {
 
         // GET: api/Users/5
-        [Route("api/users/{id}")]
+        [Route("{id}")]
         [HttpGet]
         public HttpResponseMessage Get(string id)
         {

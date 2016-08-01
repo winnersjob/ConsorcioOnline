@@ -52,6 +52,8 @@ namespace ConsorcioOnline.Controllers
             StreamReader sr;
             string strJSON = "";
             clsJSONFormatter formatter = new clsJSONFormatter();
+            Comprador comprador = new Comprador();
+            Vendedor vendedor = new Vendedor();
 
 
             try
@@ -81,7 +83,53 @@ namespace ConsorcioOnline.Controllers
                     login = (LoginUser)formatter.JSONtoClass(sr.ReadToEnd(), new LoginUser());
                     login.Password = "";
 
+                    request.Abort();
+                    response.Close();
+                    response.Dispose();
+                    sw.Close();
+                    sw.Dispose();
+                    sr.Close();
+                    sr.Dispose();
+
+                    request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLComprador"],"/",login.Id));
+
+                    request.ContentType = "application/json";
+                    request.Accept = "application/json";
+                    request.Method = "GET";
+                    request.KeepAlive = false;
+
+                    response = (HttpWebResponse)request.GetResponse();
+                    sr = new StreamReader(response.GetResponseStream());
+
+                    comprador = (Comprador)formatter.JSONtoClass(sr.ReadToEnd(), new Comprador());
+
+                    request.Abort();
+                    response.Close();
+                    response.Dispose();
+                    sr.Close();
+                    sr.Dispose();
+
+                    request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLVendedor"],"/",login.Id));
+
+                    request.ContentType = "application/json";
+                    request.Accept = "application/json";
+                    request.Method = "GET";
+                    request.KeepAlive = false;
+
+                    response = (HttpWebResponse)request.GetResponse();
+                    sr = new StreamReader(response.GetResponseStream());
+
+                    vendedor = (Vendedor)formatter.JSONtoClass(sr.ReadToEnd(), new Vendedor());
+
+                    request.Abort();
+                    response.Close();
+                    response.Dispose();
+                    sr.Close();
+                    sr.Dispose();
+
                     Session.Add("LoginUser", login.Id);
+                    Session.Add("VendedorID", vendedor.Id);
+                    Session.Add("CompradorID", comprador.Id);
                 
                 }
 
@@ -99,6 +147,16 @@ namespace ConsorcioOnline.Controllers
             if(Session["LoginUser"] != null)
             {
                 Session.Remove("LoginUser");                
+            }
+
+            if(Session["VendedorID"] != null)
+            {
+                Session.Remove("VendedorID");
+            }
+
+            if(Session["CompradorID"] != null)
+            {
+                Session.Remove("CompradorID");
             }
 
             return RedirectToAction("Index", "Home", new { area = "" });

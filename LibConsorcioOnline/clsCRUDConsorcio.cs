@@ -237,7 +237,6 @@ namespace LibConsorcioOnline
             return true;
         }
 
-
         public void insertComprador(tbComprador newComprador)
         {
             try
@@ -280,6 +279,22 @@ namespace LibConsorcioOnline
             {
                 throw new Exception(ex.Message);
                     
+            }
+        }
+        public tbComprador readComprador(string idUser)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbComprador comprador = consorcio.tbComprador.Where(c => c.id_user == idUser).FirstOrDefault();
+
+                    return comprador;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -325,6 +340,22 @@ namespace LibConsorcioOnline
             {
                 throw new Exception(ex.Message);
 
+            }
+        }
+        public tbVendedor readVendedor(string idUser)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbVendedor vendedor = consorcio.tbVendedor.Where(c => c.id_user == idUser).FirstOrDefault();
+
+                    return vendedor;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
@@ -415,13 +446,23 @@ namespace LibConsorcioOnline
                 {
 
                     string strQuery = "";
+                    string strWhere = "";
 
-                    strQuery = string.Concat("SELECT * FROM tbCartaCredito WHERE NU_VALORCREDITO >= ",valorCreditoDe.ToString(), " AND NU_VALORCREDITO <= ",valorCreditoAte.ToString()) ;
+                    strQuery = "SELECT * FROM tbCartaCredito WHERE ";
 
-                    if (idUser !="")
+                    if (idUser !="" && idUser != null)
                     {
-                        string.Concat(strQuery, " AND CD_VENDEDOR = (SELECT CD_VENDEDOR FROM tbVendedor WHERE ID_USER = '", idUser,"'");
+                        strWhere = string.Concat(" AND CD_VENDEDOR = (SELECT CD_VENDEDOR FROM tbVendedor WHERE ID_USER = '", idUser,"')");
                     }
+
+                    if(valorCreditoDe != 0 || valorCreditoAte !=0)
+                    {
+                        strWhere  =string.Concat(strWhere, " AND NU_VALORCREDITO >= ", valorCreditoDe.ToString(), " AND NU_VALORCREDITO <= ", valorCreditoAte.ToString());
+                    }
+
+                    strWhere = strWhere.Substring(5, (strWhere.Length - 5));
+
+                    strQuery = string.Concat(strQuery, strWhere);
 
                     List<tbCartaCredito> carta = consorcio.tbCartaCredito.SqlQuery(strQuery).ToList();
 
@@ -434,8 +475,7 @@ namespace LibConsorcioOnline
             }
         }
 
-
-
+        
         public void insertAnexoCarta(tbAnexoCarta newAnexoCarta)
         {
             try

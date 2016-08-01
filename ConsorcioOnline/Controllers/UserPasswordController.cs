@@ -38,7 +38,7 @@ namespace ConsorcioOnline.Controllers
         }
 
         // PUT: api/UserPassword/5
-        [Route("api/userpassword{id}")]
+        [Route("{id}")]
         [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody]UserPassword value)
         {

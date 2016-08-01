@@ -13,6 +13,35 @@ namespace ConsorcioOnline.Controllers
     public class VendedorController : ApiController
     {
 
+        //GET: api/vendedor/{id}
+        [Route("{id}")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
+        {
+            tbVendedor readVendedor = new tbVendedor();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+            Vendedor vendedor = new Vendedor();
+
+            try
+            {
+                readVendedor = CRUD.readVendedor(id);
+
+                vendedor.Id = readVendedor.cd_vendedor;
+                vendedor.IdUser = readVendedor.id_user;
+                vendedor.CreatedAt = readVendedor.dt_create.ToString();
+                vendedor.NegativeFeedback = readVendedor.nu_qual_negativa;
+                vendedor.PositiveFeedback = readVendedor.nu_qual_positiva;
+                vendedor.Blocked = readVendedor.bt_bloqueado;
+
+                return this.Request.CreateResponse(HttpStatusCode.OK, vendedor);
+            }
+            catch(Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+
         // POST: api/Vendedor
         [Route("")]
         [HttpPost]

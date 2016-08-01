@@ -13,6 +13,34 @@ namespace ConsorcioOnline.Controllers
     public class CompradorController : ApiController
     {
 
+        //GET: api/Comprador/{string}
+        [Route("{id}")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
+        {
+            tbComprador readComprador = new tbComprador();
+            clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
+            Comprador comprador = new Comprador();
+
+            try
+            {
+                readComprador = CRUD.readComprador(id);
+
+                comprador.Id = readComprador.cd_comprador;
+                comprador.IdUser = readComprador.id_user;
+                comprador.CreatedAt = readComprador.dt_create.ToString();
+                comprador.NegativeFeedback = readComprador.nu_qual_negativa;
+                comprador.PositiveFeedback = readComprador.nu_qual_positiva;
+                comprador.Blocked = readComprador.bt_bloqueado;
+
+                return this.Request.CreateResponse(HttpStatusCode.OK, comprador);
+            }
+            catch (Exception ex)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
         // POST: api/Comprador
         [Route("")]
         [HttpPost]

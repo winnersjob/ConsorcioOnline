@@ -16,7 +16,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Sistema de Consorcio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Sistema Facil de Consorcio", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -28,7 +28,7 @@
                     else
                     { 
                     <li>@Html.ActionLink("Meus Dados","Details","UsersMVC", new { id = Session["LoginUser"] }, null)</li>
-                    <li>@Html.ActionLink("Minhas Cartas", "Index", "CartaCreditoMVC", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("Minhas Cartas", "Index", "CartaCreditoMVC", new { id = Session["LoginUser"] }, null)</li>
                     <li>@Html.ActionLink("Incluir Carta", "Create", "CartaCreditoMVC", new { area = "" }, null) </li>
                     <li>@Html.ActionLink("Redefinir Senha", "Edit", "UserPasswordMVC", new { id = Session["LoginUser"] }, null)</li>
                     <li>@Html.ActionLink("LogOut","Logout","Home",new { area = ""})</li>                                       

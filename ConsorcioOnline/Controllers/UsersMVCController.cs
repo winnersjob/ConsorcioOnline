@@ -97,6 +97,11 @@ namespace ConsorcioOnline.Controllers
 
                 request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLVendedor"]);
 
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "POST";
+                request.KeepAlive = false;
+
                 vendedor = new Vendedor();
                 vendedor.IdUser = users.Id;
 
@@ -115,6 +120,11 @@ namespace ConsorcioOnline.Controllers
                 sw.Dispose();
 
                 request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLComprador"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "POST";
+                request.KeepAlive = false;
 
                 comprador = new Comprador();
                 comprador.IdUser = users.Id;

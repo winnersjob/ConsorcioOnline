@@ -110,6 +110,7 @@ namespace ConsorcioOnline.Controllers
                 newCarta.cd_vendedor = value.IdVendedor;
                 newCarta.de_cidade = value.Cidade;
                 newCarta.de_uf = value.UF;
+                newCarta.cd_statuscarta = value.StatusCarta;
                 newCarta.de_indexador = value.Indexador;
                 newCarta.nu_honorarios = value.Honorarios;
                 newCarta.nu_qtd_parcelas = value.QtdParcelas;

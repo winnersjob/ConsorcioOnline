@@ -16,7 +16,7 @@ namespace ConsorcioOnline.Controllers
     {
 
         // GET: CartaCreditoMVC
-        public ActionResult Index()
+        public ActionResult Index(string id = "")
         {
             Models.Filter filter = new Models.Filter();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLCarta"],"/List"));
@@ -27,8 +27,14 @@ namespace ConsorcioOnline.Controllers
             clsJSONFormatter formatter = new clsJSONFormatter();
             List<CartaCredito> carta = new List<CartaCredito>();
 
-            if (Session["Filters"] != null)
+            if (Session["Filters"] != null || id != "")
             {
+                if(Session["Filters"]==null)
+                {
+                    filter.IdUser = id;
+                    Session.Add("Filters",filter);
+                }
+
                 filter = (Models.Filter)Session["Filters"];
 
                 strJSON = formatter.ClasstoJSON(filter);
@@ -53,15 +59,36 @@ namespace ConsorcioOnline.Controllers
         }
 
         // GET: CartaCreditoMVC/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(long id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            CartaCredito carta = new CartaCredito();
+
+            try
+            {                
+                request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLCarta"], "/", id));
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                carta = (CartaCredito)formatter.JSONtoClass(sr.ReadToEnd(), new CartaCredito());
+
+                return View(carta);
             }
-            
-            
-            return View();
+            catch(Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest,ex.Message);
+            }
+
         }
 
         // GET: CartaCreditoMVC/Create
@@ -77,16 +104,41 @@ namespace ConsorcioOnline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AdmConsorcio,TipoConsorcio,Cidade,UF,ValorCredito,ValorEntrata,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLCarta"]);
+            HttpWebRequest request;
             HttpWebResponse response;
             StreamReader sr;
-            StreamWriter sw;
-            MemoryStream ms;
+            StreamWriter sw;            
             clsJSONFormatter formatter = new clsJSONFormatter();
+            Vendedor vendedor = new Vendedor();
             string strJSON = "";
 
             if (ModelState.IsValid)
             {
+
+                request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLVendedor"], "/", Session["LoginUser"]));
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                vendedor = (Vendedor)formatter.JSONtoClass(sr.ReadToEnd(), new Vendedor());
+
+                cartaCredito.IdVendedor = vendedor.Id;
+                cartaCredito.StatusCarta = (int)CartaCredito.enStatusCarta.Em_Analise;
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLCarta"]);
+
                 strJSON = formatter.ClasstoJSON(cartaCredito);
 
                 request.ContentType = "application/json";
@@ -100,68 +152,81 @@ namespace ConsorcioOnline.Controllers
 
                 response = (HttpWebResponse)request.GetResponse();
 
-                return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
+                return RedirectToAction("Details", new { id = Session["LoginUser"].ToString() });
             }
 
             return RedirectToAction("Home", "Index");
         }
 
-        //// GET: CartaCreditoMVC/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    CartaCredito cartaCredito = db.CartaCreditoes.Find(id);
-        //    if (cartaCredito == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(cartaCredito);
-        //}
+        // GET: CartaCreditoMVC/Edit/5
+        public ActionResult Edit(long id)
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            CartaCredito carta;
 
-        //// POST: CartaCreditoMVC/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,IdVendedor,AdmConsorcio,TipoConsorcio,StatusCarta,Cidade,UF,ValorCredito,ValorEntrata,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(cartaCredito).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(cartaCredito);
-        //}
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLCarta"], "/", id));
 
-        //// GET: CartaCreditoMVC/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    CartaCredito cartaCredito = db.CartaCreditoes.Find(id);
-        //    if (cartaCredito == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(cartaCredito);
-        //}
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
 
-        //// POST: CartaCreditoMVC/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    CartaCredito cartaCredito = db.CartaCreditoes.Find(id);
-        //    db.CartaCreditoes.Remove(cartaCredito);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                carta = (CartaCredito)formatter.JSONtoClass(sr.ReadToEnd(), new CartaCredito());
+
+                return View(carta);
+            }
+            catch(Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+            }           
+            
+        }
+
+        // POST: CartaCreditoMVC/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,IdVendedor,AdmConsorcio,TipoConsorcio,StatusCarta,Cidade,UF,ValorCredito,ValorEntrata,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            StreamWriter sw;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            Vendedor vendedor = new Vendedor();
+            string strJSON = "";
+
+            if (ModelState.IsValid)
+            {
+                request = (HttpWebRequest)WebRequest.Create(String.Concat( ConfigurationSettings.AppSettings["URLCarta"],"/",cartaCredito.Id));
+
+                strJSON = formatter.ClasstoJSON(cartaCredito);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "PUT";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                return RedirectToAction("Index");
+            }
+            return View(cartaCredito);
+        }
 
         protected override void Dispose(bool disposing)
         {

@@ -39,11 +39,7 @@ namespace ConsorcioOnline.Controllers
 
                 carta = (CartaCredito)formatter.JSONtoClass(sr.ReadToEnd(), new CartaCredito());
 
-                ViewData["carta-admconsorcio"] = carta.AdmConsorcio;
-                ViewData["carta-cidade"] = carta.Cidade;
-                //Continuar ou achar uma forma de fazer mais rápido
-
-                return View();
+                return View(carta);
             }
             catch (Exception ex)
             {

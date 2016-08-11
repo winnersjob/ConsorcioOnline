@@ -57,5 +57,14 @@ namespace ConsorcioOnline.Models
         [DataMember]
         [Required]
         public decimal TaxaJuros { get; set; }
+        [DataMember]
+        public string NomeVendedor { get; set; }
+        [DataMember]
+        public string DTipoConsorcio { get; set; }
+        [DataMember]
+        public string DStatusCarta { get; set; }
+        [DataMember]
+        public string NomeAdmConsorcio { get; set; }
+   
     }
 }

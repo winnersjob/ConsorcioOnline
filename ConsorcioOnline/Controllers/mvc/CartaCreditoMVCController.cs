@@ -29,14 +29,19 @@ namespace ConsorcioOnline.Controllers
 
             if (Session["Filters"] != null || id != "")
             {
-                if(Session["Filters"]==null)
+                
+                
+                if(Session["Filters"]!= null)
+                {
+                    filter = (Models.Filter)Session["Filters"];
+                    filter.IdUser = id;
+                }
+                else
                 {
                     filter.IdUser = id;
-                    Session.Add("Filters",filter);
+                    Session.Add("Filters", filter);
                 }
-
-                filter = (Models.Filter)Session["Filters"];
-
+                
                 strJSON = formatter.ClasstoJSON(filter);
 
                 request.ContentType = "application/json";
@@ -102,7 +107,7 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AdmConsorcio,TipoConsorcio,Cidade,UF,ValorCredito,ValorEntrata,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
+        public ActionResult Create([Bind(Include = "AdmConsorcio,TipoConsorcio,Cidade,UF,ValorCredito,ValorEntrada,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
         {
             HttpWebRequest request;
             HttpWebResponse response;
@@ -196,7 +201,7 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,IdVendedor,AdmConsorcio,TipoConsorcio,StatusCarta,Cidade,UF,ValorCredito,ValorEntrata,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
+        public ActionResult Edit([Bind(Include = "Id,IdVendedor,AdmConsorcio,TipoConsorcio,StatusCarta,Cidade,UF,ValorCredito,ValorEntrada,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
         {
             HttpWebRequest request;
             HttpWebResponse response;

@@ -558,6 +558,22 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
+        public List<tbPropostaCarta> readPropostasCarta(long id,int status)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    List<tbPropostaCarta> propostas = consorcio.tbPropostaCarta.Where(c => c.cd_cartacredito == id && c.cd_statusproposta == status).ToList();
+
+                    return propostas;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public void insertQualificacaoComprador(tbQualificacaoComprador newQualificacaoComprador)
         {

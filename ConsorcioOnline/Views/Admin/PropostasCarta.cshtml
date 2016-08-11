@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ConsorcioOnline.Models.PropostaCarta>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="form-group">
+
+</div>
+@Html.AntiForgeryToken()
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCarta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdVendedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdComprador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusProposta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MensagemProposta)
+        </th>
+        <th></th>
+    </tr>
+
+@if(Model != null)
+{ 
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCarta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdVendedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdComprador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusProposta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MensagemProposta)
+            </td>
+            <td>                
+                @switch (item.StatusProposta)
+                {
+                    case (int)ConsorcioOnline.Models.PropostaCarta.enStatusProposta.EmAnalise:
+                        @Html.ActionLink("Aprovar", "StatusTransit", new { id = item.Id, status = (int)ConsorcioOnline.Models.PropostaCarta.enStatusProposta.Aprovada }) 
+                        break;
+                    case (int)ConsorcioOnline.Models.PropostaCarta.enStatusProposta.Aprovada:
+                        @Html.ActionLink("Transferir", "StatusTransit", new { id = item.Id, status = (int)ConsorcioOnline.Models.PropostaCarta.enStatusProposta.EmTransferencia }) 
+                        break;
+                    case (int)ConsorcioOnline.Models.PropostaCarta.enStatusProposta.EmTransferencia:
+                        @Html.ActionLink("Concluir", "StatusTransit", new { id = item.Id, status = (int)ConsorcioOnline.Models.PropostaCarta.enStatusProposta.Concluida }) 
+                        break;                   
+                }
+                |
+                @Html.ActionLink("Mais Detalhes da Carta", "Details", new { id=item.Id })
+            </td>
+        </tr>
+    }
+}
+</table>

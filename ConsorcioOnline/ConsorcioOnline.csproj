@@ -239,21 +239,22 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AnexoCartaController.cs" />
-    <Compile Include="Controllers\CartaController.cs" />
-    <Compile Include="Controllers\CartaCreditoMVCController.cs" />
-    <Compile Include="Controllers\CompradorController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\PropostaCartaController.cs" />
-    <Compile Include="Controllers\PropostaCartaMVCController.cs" />
-    <Compile Include="Controllers\QualificacaoCompradorController.cs" />
-    <Compile Include="Controllers\QualificacaoVendedorController.cs" />
-    <Compile Include="Controllers\UserPasswordController.cs" />
-    <Compile Include="Controllers\UserPasswordMVCController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\UsersMVCController.cs" />
-    <Compile Include="Controllers\VendedorController.cs" />
+    <Compile Include="Controllers\api\AnexoCartaController.cs" />
+    <Compile Include="Controllers\api\CartaController.cs" />
+    <Compile Include="Controllers\mvc\AdminController.cs" />
+    <Compile Include="Controllers\mvc\CartaCreditoMVCController.cs" />
+    <Compile Include="Controllers\api\CompradorController.cs" />
+    <Compile Include="Controllers\mvc\HomeController.cs" />
+    <Compile Include="Controllers\api\LoginController.cs" />
+    <Compile Include="Controllers\api\PropostaCartaController.cs" />
+    <Compile Include="Controllers\mvc\PropostaCartaMVCController.cs" />
+    <Compile Include="Controllers\api\QualificacaoCompradorController.cs" />
+    <Compile Include="Controllers\api\QualificacaoVendedorController.cs" />
+    <Compile Include="Controllers\api\UserPasswordController.cs" />
+    <Compile Include="Controllers\mvc\UserPasswordMVCController.cs" />
+    <Compile Include="Controllers\api\UsersController.cs" />
+    <Compile Include="Controllers\mvc\UsersMVCController.cs" />
+    <Compile Include="Controllers\api\VendedorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -282,7 +283,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
@@ -348,15 +349,16 @@
     <Content Include="Views\PropostaCartaMVC\Create.cshtml" />
     <Content Include="Views\PropostaCartaMVC\Details.cshtml" />
     <Content Include="Views\PropostaCartaMVC\Edit.cshtml" />
-    <Content Include="Views\PropostaCartaMVC\Index.cshtml" />
+    <Content Include="Views\Admin\PropostasCarta.cshtml" />
+    <Content Include="Views\Admin\CartasCredito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Models\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />

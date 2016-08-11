@@ -142,7 +142,7 @@ namespace ConsorcioOnline.Controllers
 
         }
 
-        public ActionResult LogOut()
+        public ActionResult Logout()
         {
             if(Session["LoginUser"] != null)
             {
@@ -157,6 +157,11 @@ namespace ConsorcioOnline.Controllers
             if(Session["CompradorID"] != null)
             {
                 Session.Remove("CompradorID");
+            }
+
+            if(Session["Filters"] != null)
+            {
+                Session.Remove("Filters");
             }
 
             return RedirectToAction("Index", "Home", new { area = "" });

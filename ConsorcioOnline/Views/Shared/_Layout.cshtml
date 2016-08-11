@@ -31,7 +31,7 @@
                     <li>@Html.ActionLink("Minhas Cartas", "Index", "CartaCreditoMVC", new { id = Session["LoginUser"] }, null)</li>
                     <li>@Html.ActionLink("Incluir Carta", "Create", "CartaCreditoMVC", new { area = "" }, null) </li>
                     <li>@Html.ActionLink("Redefinir Senha", "Edit", "UserPasswordMVC", new { id = Session["LoginUser"] }, null)</li>
-                    <li>@Html.ActionLink("LogOut","Logout","Home",new { area = ""})</li>                                       
+                    <li>@Html.ActionLink("LogOut","Logout","Home",new { area = "" },null)</li>                                       
                     }
                 </ul>
             </div>

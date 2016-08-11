@@ -87,7 +87,7 @@
                 if ((long)Session["VendedorID"] != item.IdVendedor)
                 {
                     <strong>|</strong>
-                    @Html.ActionLink("Proposta", "Edit", new { id = item.Id })                    
+                    @Html.ActionLink("Proposta", "Create","PropostaCartaMVC", new { id = item.Id },null)                    
                 }
             }
         </td>

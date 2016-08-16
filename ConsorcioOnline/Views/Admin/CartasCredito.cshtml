@@ -4,11 +4,19 @@
     ViewBag.Title = "CartasCredito";
 }
 
-<h2>CartasCredito</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Cartas Credito</h2>
+@using (Html.BeginForm("CartasCredito"))
+{ 
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-md-2">Status:</label>
+            <div class="col-md-10">
+                @Html.DropDownList("idStatus", new SelectList((IEnumerable<ConsorcioOnline.Models.StatusCarta>)ViewData["ListStatus"], "Id", "Nome"), new { @onchange ="this.form.submit();" })
+            </div>
+        </div>
+    </div>
+}
 <table class="table">
     <tr>
         <th>
@@ -58,7 +66,7 @@
 
 @if(Model != null)
 { 
-    @foreach (var item in Model) {
+    foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.IdVendedor)
@@ -103,9 +111,17 @@
                 @Html.DisplayFor(modelItem => item.TaxaJuros)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                @if(item.StatusCarta == (int)ConsorcioOnline.Models.CartaCredito.enStatusCarta.Em_Analise)
+                {
+
+                    @Html.ActionLink("Publicar", "CartaStatusTransit", new { idCarta = item.Id, status = (int)ConsorcioOnline.Models.CartaCredito.enStatusCarta.Publicada })
+                    <strong>|</strong>
+                    @Html.ActionLink("Reprovar", "CartaStatusTransit", new { idCarta = item.Id, status = (int)ConsorcioOnline.Models.CartaCredito.enStatusCarta.Reprovada })
+                }
+                @if(item.StatusCarta == (int)ConsorcioOnline.Models.CartaCredito.enStatusCarta.Publicada)
+                {
+                    @Html.ActionLink("Propostas", "PropostasCarta",new { id = item.Id })
+                }
             </td>
         </tr>
     }

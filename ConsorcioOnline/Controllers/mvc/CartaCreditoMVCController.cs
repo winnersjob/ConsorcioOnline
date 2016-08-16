@@ -34,11 +34,11 @@ namespace ConsorcioOnline.Controllers
                 if(Session["Filters"]!= null)
                 {
                     filter = (Models.Filter)Session["Filters"];
-                    filter.IdUser = id;
+                    filter.IdUser = id;                    
                 }
                 else
                 {
-                    filter.IdUser = id;
+                    filter.IdUser = id;                    
                     Session.Add("Filters", filter);
                 }
                 
@@ -157,7 +157,7 @@ namespace ConsorcioOnline.Controllers
 
                 response = (HttpWebResponse)request.GetResponse();
 
-                return RedirectToAction("Details", new { id = Session["LoginUser"].ToString() });
+                return RedirectToAction("Index","CartaCreditoMVC", new { id = Session["LoginUser"].ToString() });
             }
 
             return RedirectToAction("Home", "Index");

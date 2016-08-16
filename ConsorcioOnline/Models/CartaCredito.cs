@@ -10,7 +10,7 @@ namespace ConsorcioOnline.Models
     public class CartaCredito
     {
 
-        public enum enStatusCarta {Em_Analise = 1,Publicada=2,Reprovada=3 };
+        public enum enStatusCarta { Em_Analise = 1, Publicada = 2, Reprovada = 3 };
 
         [DataMember]
         [Key]
@@ -57,14 +57,6 @@ namespace ConsorcioOnline.Models
         [DataMember]
         [Required]
         public decimal TaxaJuros { get; set; }
-        [DataMember]
-        public string NomeVendedor { get; set; }
-        [DataMember]
-        public string DTipoConsorcio { get; set; }
-        [DataMember]
-        public string DStatusCarta { get; set; }
-        [DataMember]
-        public string NomeAdmConsorcio { get; set; }
-   
+        
     }
 }

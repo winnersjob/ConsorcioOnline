@@ -31,6 +31,42 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
+        public List<tbStatusCarta> readStatusCarta()
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    List<tbStatusCarta> status = consorcio.tbStatusCarta.ToList();
+
+                    return status;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }        
+            
+        }
+
+        public List<tbStatusProposta> readStatusProposta()
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    List<tbStatusProposta> status = consorcio.tbStatusProposta.ToList();
+
+                    return status;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
 
         public tbUsers insertUser(tbUsers newUser)
         {
@@ -423,7 +459,7 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
-        public tbCartaCredito readCartaCredito(Int64 idCarta)
+        public tbCartaCredito readCartaCredito(long idCarta)
         {
             try
             {
@@ -438,7 +474,7 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
-        public List<tbCartaCredito> readCartasCredito(decimal valorCreditoDe=0, decimal valorCreditoAte=0, string idUser="")
+        public List<tbCartaCredito> readCartasCredito(decimal valorCreditoDe=0, decimal valorCreditoAte=0, string idUser="", int statusCarta = 0, int proposta = 0)
         {
             try
             {
@@ -460,6 +496,16 @@ namespace LibConsorcioOnline
                         strWhere  =string.Concat(strWhere, " AND NU_VALORCREDITO >= ", valorCreditoDe.ToString(), " AND NU_VALORCREDITO <= ", valorCreditoAte.ToString());
                     }
 
+                    if(statusCarta != 0)
+                    {
+                        strWhere = string.Concat(strWhere, " AND CD_STATUSCARTA = ",statusCarta.ToString());
+                    }
+
+                    if(proposta == 1)
+                    {
+                        strWhere = string.Concat(strWhere, " AND CD_CARTACREDITO NOT IN( SELECT CD_CARTACREDITO FROM tbPropostaCarta WHERE CD_STATUSPROPOSTA IN( 5 ) )");
+                    }
+
                     strWhere = strWhere.Substring(5, (strWhere.Length - 5));
 
                     strQuery = string.Concat(strQuery, strWhere);
@@ -474,8 +520,7 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
-
-        
+                
         public void insertAnexoCarta(tbAnexoCarta newAnexoCarta)
         {
             try
@@ -558,18 +603,33 @@ namespace LibConsorcioOnline
                 throw new Exception(ex.Message);
             }
         }
-        public List<tbPropostaCarta> readPropostasCarta(long id,int status)
+        public List<tbPropostaCarta> readPropostasCarta(long id)
         {
             try
             {
                 using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
                 {
-                    List<tbPropostaCarta> propostas = consorcio.tbPropostaCarta.Where(c => c.cd_cartacredito == id && c.cd_statusproposta == status).ToList();
+                    List<tbPropostaCarta> propostas = consorcio.tbPropostaCarta.Where(c => c.cd_cartacredito == id).ToList();
 
                     return propostas;
                 }
             }
             catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public tbPropostaCarta readPropostaCarta(long idProposta)
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    tbPropostaCarta proposta = consorcio.tbPropostaCarta.Where(c => c.cd_propostacarta == idProposta).FirstOrDefault();
+                    return proposta;
+                }
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

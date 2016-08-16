@@ -21,7 +21,7 @@ namespace ConsorcioOnline.Controllers
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
             List<CartaCredito> listCarta = new List<CartaCredito>();
 
-            readCarta = CRUD.readCartasCredito(value.ValorCreditoDe, value.ValorCreditoAte, value.IdUser);
+            readCarta = CRUD.readCartasCredito(value.ValorCreditoDe, value.ValorCreditoAte, value.IdUser, value.StatusCarta, value.RemoveProposta);
 
             if(readCarta.Count > 0 )
             {

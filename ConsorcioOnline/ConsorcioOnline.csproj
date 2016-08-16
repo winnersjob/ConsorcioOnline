@@ -241,6 +241,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\AnexoCartaController.cs" />
     <Compile Include="Controllers\api\CartaController.cs" />
+    <Compile Include="Controllers\api\StatusCartaController.cs" />
+    <Compile Include="Controllers\api\StatusPropostaController.cs" />
     <Compile Include="Controllers\mvc\AdminController.cs" />
     <Compile Include="Controllers\mvc\CartaCreditoMVCController.cs" />
     <Compile Include="Controllers\api\CompradorController.cs" />
@@ -268,6 +270,8 @@
     <Compile Include="Models\PropostaCarta.cs" />
     <Compile Include="Models\QualificacaoComprador.cs" />
     <Compile Include="Models\QualificacaoVendedor.cs" />
+    <Compile Include="Models\StatusProposta.cs" />
+    <Compile Include="Models\StatusCarta.cs" />
     <Compile Include="Models\Vendedor.cs" />
     <Compile Include="Models\Comprador.cs" />
     <Compile Include="Models\IdentityModels.cs" />

@@ -25,6 +25,9 @@ namespace ConsorcioOnline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Index([Bind(Include ="ValorCreditoDe,ValorCreditoAte")] ConsorcioOnline.Models.Filter filter)
         {
+            filter.StatusCarta = (int)CartaCredito.enStatusCarta.Publicada;
+            filter.RemoveProposta = 1;
+
             if(Session["Filters"] == null)
             {
                 Session.Add("Filters", filter);

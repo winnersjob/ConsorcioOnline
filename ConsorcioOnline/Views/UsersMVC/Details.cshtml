@@ -4,12 +4,21 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<p>&nbsp;</p>
+<div class="form-horizontal text-center">
+    <img src="~/Imagens/logo1.png" />
+    <h2 style="text-align:center;font-size:large;color:dodgerblue">DETALHES DA CONTA</h2>
+</div>
 
 <div>
-    <h4>Users</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
@@ -31,8 +40,8 @@
         </dt>
 
         <dd>
-            @Html.RadioButton("FisJur", 1, Html.DisplayFor(model => model.FisJur).ToString() == "1" ? true : false, new { disabled="disabled" }) Fisica
-            @Html.RadioButton("FisJur", 2, Html.DisplayFor(model => model.FisJur).ToString() == "2" ? true : false, new { disabled="disabled" }) Juridica
+            @Html.RadioButton("FisJur", 1, Html.DisplayFor(model => model.FisJur).ToString() == "1" ? true : false, new { disabled = "disabled" }) Fisica
+            @Html.RadioButton("FisJur", 2, Html.DisplayFor(model => model.FisJur).ToString() == "2" ? true : false, new { disabled = "disabled" }) Juridica
         </dd>
 
         <dt>
@@ -58,18 +67,22 @@
         <dd>
             @Html.DisplayFor(model => model.IE)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Telefone)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Blocked)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Blocked)
+            @Html.Label(Html.DisplayFor(model => model.Blocked).ToString() == "0" ? "Não" : "Sim")
         </dd>
 
     </dl>
+    <div class="form-group">
+        @Html.ActionLink("EDITAR","Edit","UsersMVC", new { id = Session["LoginUser"] }, new { @class="btn-success"})
+    </div>    
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

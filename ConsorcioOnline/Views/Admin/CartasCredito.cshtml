@@ -12,7 +12,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Status:</label>
             <div class="col-md-10">
-                @Html.DropDownList("idStatus", new SelectList((IEnumerable<ConsorcioOnline.Models.StatusCarta>)ViewData["ListStatus"], "Id", "Nome"), new { @onchange ="this.form.submit();" })
+                @Html.DropDownList("idStatus", new SelectList((IEnumerable<ConsorcioOnline.Models.StatusCarta>)ViewData["ListStatus"], "Id", "Nome"), new { @onchange ="this.form.submit();", @class="form-control" })
             </div>
         </div>
     </div>

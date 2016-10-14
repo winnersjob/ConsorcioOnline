@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbConsorcioModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbConsorcioModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbAdmConsorcio">
           <Key>
             <PropertyRef Name="cd_admconsorcio" />
@@ -138,11 +138,12 @@
           <Property Name="nm_user" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="nm_apelido" Type="varchar" MaxLength="150" />
           <Property Name="cd_fisjur" Type="int" Nullable="false" />
-          <Property Name="cd_cpf" Type="varchar" MaxLength="11" />
-          <Property Name="cd_cnpj" Type="varchar" MaxLength="14" />
+          <Property Name="cd_cpf" Type="varchar" MaxLength="14" />
+          <Property Name="cd_cnpj" Type="varchar" MaxLength="18" />
           <Property Name="cd_ie" Type="varchar" MaxLength="20" />
           <Property Name="bit_bloqueio" Type="int" Nullable="false" />
-          <Property Name="de_username" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="de_username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="de_telefone" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="tbVendedor">
           <Key>
@@ -492,7 +493,8 @@
             <End Role="tbQualificacaoVendedor" EntitySet="tbQualificacaoVendedor" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbConsorcioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -660,15 +662,16 @@
           <Property Name="nm_user" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nm_apelido" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="cd_fisjur" Type="Int32" Nullable="false" />
-          <Property Name="cd_cpf" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="cd_cnpj" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="cd_cpf" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="cd_cnpj" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
           <Property Name="cd_ie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="bit_bloqueio" Type="Int32" Nullable="false" />
+          <Property Name="de_username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="de_telefone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbComprador" Relationship="Self.fk_user_comprador" FromRole="tbUsers" ToRole="tbComprador" />
           <NavigationProperty Name="tbFisicaJuridica" Relationship="Self.fk_fisjur_user" FromRole="tbUsers" ToRole="tbFisicaJuridica" />
           <NavigationProperty Name="tbUserPassword" Relationship="Self.fk_user_userpassword" FromRole="tbUsers" ToRole="tbUserPassword" />
           <NavigationProperty Name="tbVendedor" Relationship="Self.fk_user_venndedor" FromRole="tbUsers" ToRole="tbVendedor" />
-          <Property Name="de_username" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tbVendedor">
           <Key>
@@ -1170,7 +1173,6 @@
           <EntitySetMapping Name="tbUsers">
             <EntityTypeMapping TypeName="dbConsorcioModel.tbUsers">
               <MappingFragment StoreEntitySet="tbUsers">
-                <ScalarProperty Name="de_username" ColumnName="de_username" />
                 <ScalarProperty Name="id_user" ColumnName="id_user" />
                 <ScalarProperty Name="nm_user" ColumnName="nm_user" />
                 <ScalarProperty Name="nm_apelido" ColumnName="nm_apelido" />
@@ -1179,6 +1181,8 @@
                 <ScalarProperty Name="cd_cnpj" ColumnName="cd_cnpj" />
                 <ScalarProperty Name="cd_ie" ColumnName="cd_ie" />
                 <ScalarProperty Name="bit_bloqueio" ColumnName="bit_bloqueio" />
+                <ScalarProperty Name="de_username" ColumnName="de_username" />
+                <ScalarProperty Name="de_telefone" ColumnName="de_telefone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

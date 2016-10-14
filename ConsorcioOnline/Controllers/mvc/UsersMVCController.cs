@@ -17,49 +17,81 @@ namespace ConsorcioOnline.Controllers
     public class UsersMVCController : Controller
     {
 
-        // GET: UsersMVC/Details/xxxxxx
-        public ActionResult Details(string id)
+        private List<FisicaJuridica> ReadFisicaJuridica()
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"],"/",id));
+            List<FisicaJuridica> fisjur = new List<FisicaJuridica>();
+            HttpWebRequest request;
             HttpWebResponse response;
             StreamReader sr;
             clsJSONFormatter formatter = new clsJSONFormatter();
-            Users users;
 
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            request.Method = "GET";
-            request.KeepAlive = false;
-
-            response = (HttpWebResponse)request.GetResponse();
-            sr = new StreamReader(response.GetResponseStream());
-
-            users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
-
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLFisicaJuridica"]);
 
-            return View(users);
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                fisjur = (List<FisicaJuridica>)formatter.JSONtoClass(sr.ReadToEnd(), new List<FisicaJuridica>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index","Home",null);
+            }            
+
+            return fisjur;
         }
 
-        // GET: UsersMVC/Create
-        public ActionResult Create()
+        private Users ReadUser(string id)
         {
-            return View();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", id));
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            Users users=  new Users();
+
+            try
+            {
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+                sr = new StreamReader(response.GetResponseStream());
+
+                users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index","Home",new { area = "" });
+            }
+
+            return users;
+
         }
 
-        // POST: UsersMVC/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserName,Nome,Apelido,FisJur,CPF,CNPJ,IE")] Users users)
+        private Users InsertUser(Users users)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUser"]);
             HttpWebResponse response;
@@ -67,10 +99,8 @@ namespace ConsorcioOnline.Controllers
             StreamWriter sw;
             clsJSONFormatter formatter = new clsJSONFormatter();
             string strJSON = "";
-            Vendedor vendedor;
-            Comprador comprador;
 
-            if (ModelState.IsValid)
+            try
             {
                 strJSON = formatter.ClasstoJSON(users);
 
@@ -94,16 +124,105 @@ namespace ConsorcioOnline.Controllers
                 sw.Dispose();
                 sr.Close();
                 sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
 
-                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLVendedor"]);
+            return users;
 
+        }
+
+        private Users UpdateUser(Users users)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", Session["LoginUser"].ToString()));
+            HttpWebResponse response;
+            StreamReader sr;
+            StreamWriter sw;            
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
+            try
+            {
+                strJSON = formatter.ClasstoJSON(users);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "PUT";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sw.Close();
+                sw.Dispose();                               
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return users;
+        }
+
+        private void InsertComprador(Comprador comprador)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLComprador"]);
+            HttpWebResponse response;
+            StreamReader sr;
+            StreamWriter sw;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
+            try
+            {
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
                 request.Method = "POST";
                 request.KeepAlive = false;
+                
+                strJSON = formatter.ClasstoJSON(comprador);
 
-                vendedor = new Vendedor();
-                vendedor.IdUser = users.Id;
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sw.Close();
+                sw.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }            
+        }
+
+        private void InsertVendedor(Vendedor vendedor)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLVendedor"]);
+            HttpWebResponse response;
+            StreamReader sr;
+            StreamWriter sw;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
+            try
+            {
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "POST";
+                request.KeepAlive = false;
 
                 strJSON = formatter.ClasstoJSON(vendedor);
 
@@ -118,18 +237,30 @@ namespace ConsorcioOnline.Controllers
                 response.Dispose();
                 sw.Close();
                 sw.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
+        }
 
-                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLComprador"]);
+        private void InsertPassword(UserPassword userPassword)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLUserPassword"]);
+            HttpWebResponse response;
+            StreamWriter sw;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            string strJSON = "";
+
+            try
+            {
+                strJSON = formatter.ClasstoJSON(userPassword);
 
                 request.ContentType = "application/json";
                 request.Accept = "application/json";
                 request.Method = "POST";
                 request.KeepAlive = false;
-
-                comprador = new Comprador();
-                comprador.IdUser = users.Id;
-
-                strJSON = formatter.ClasstoJSON(comprador);
 
                 sw = new StreamWriter(request.GetRequestStream());
                 sw.Write(strJSON);
@@ -137,30 +268,93 @@ namespace ConsorcioOnline.Controllers
 
                 response = (HttpWebResponse)request.GetResponse();
 
-                return RedirectToAction("Create", "UserPasswordMVC",new { id = users.Id});
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sw.Close();
+                sw.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        // GET: UsersMVC/Details/xxxxxx
+        public ActionResult Details(string id)
+        {
+            
+            Users users = new Users();
+
+            users = ReadUser(id);
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (users == null)
+            {
+                return HttpNotFound();
             }
 
-            return RedirectToAction("Create", "UserPasswordMVC");
+            return View(users);
+        }
+        
+        // GET: UsersMVC/Create
+        public ActionResult Create()
+        {
+            
+            ViewData["FisicaJuridica"] = ReadFisicaJuridica();
+            
+            return View();
+        }
+
+        // POST: UsersMVC/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Nome,UserName,FisJur,Telefone,Senha,ConfirmSenha")] Users users)
+        {            
+            Vendedor vendedor = new Vendedor();
+            Comprador comprador = new Comprador();
+            UserPassword password = new UserPassword();
+
+            if (ModelState.IsValid)
+            {
+                users = InsertUser(users);
+                
+                vendedor.IdUser = users.Id;
+
+                InsertVendedor(vendedor);                
+
+                comprador.IdUser = users.Id;
+
+                InsertComprador(comprador);
+
+                password.Id = users.Id;
+                password.Password = users.Senha;
+                password.PasswordConfirm = users.ConfirmSenha;
+
+                InsertPassword(password);
+
+                return RedirectToAction("Login","Home",new { area = ""});
+            }
+
+            ViewData["FisicaJuridica"] = ReadFisicaJuridica();
+
+            return View();
+
         }
 
         // GET: UsersMVC/Edit/5
         public ActionResult Edit(string id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", id));
-            HttpWebResponse response;
-            StreamReader sr;
-            clsJSONFormatter formatter = new clsJSONFormatter();
-            Users users;
+         
+            Users users = new Users();
 
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            request.Method = "GET";
-            request.KeepAlive = false;
-
-            response = (HttpWebResponse)request.GetResponse();
-            sr = new StreamReader(response.GetResponseStream());
-
-            users = (Users)formatter.JSONtoClass(sr.ReadToEnd(), new Users());
+            users = ReadUser(id);
+            ViewData["FisicaJuridica"] = ReadFisicaJuridica();
 
             if (id == null)
             {
@@ -178,36 +372,27 @@ namespace ConsorcioOnline.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nome,Apelido,FisJur,CPF,CNPJ,IE")] Users users)
+        public ActionResult Edit([Bind(Include = "UserName,Nome,Apelido,FisJur,Telefone,CPF,CNPJ,IE")] Users users)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLUser"], "/", Session["UserID"].ToString()));
-            HttpWebResponse response;
-            StreamReader sr;
-            StreamWriter sw;
-            MemoryStream ms;
-            clsJSONFormatter formatter = new clsJSONFormatter();
-            string strJSON = "";
+
+            if (Session["LoginUser"] == null)
+            {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }            
 
             if (ModelState.IsValid)
-            {
-                users.Id = Session["UserID"].ToString();
+            {               
 
-                strJSON = formatter.ClasstoJSON(users);
+                users.Id = Session["LoginUser"].ToString();
+
+                UpdateUser(users);
                 
-                request.ContentType = "application/json"    ;
-                request.Accept = "application/json";
-                request.Method = "PUT";
-                request.KeepAlive = false;
+                return RedirectToAction("Details", new { id = Session["LoginUser"].ToString() });
+            }            
 
-                sw = new StreamWriter(request.GetRequestStream());
-                sw.Write(strJSON);
-                sw.Flush();
+            ViewData["FisicaJuridica"] = ReadFisicaJuridica();
 
-                response = (HttpWebResponse)request.GetResponse();
-
-                return RedirectToAction("Details", new { id = Session["UserID"].ToString() });
-            }
-            return View(users);
+            return View();
         }
 
         protected override void Dispose(bool disposing)

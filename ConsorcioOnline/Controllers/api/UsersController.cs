@@ -36,6 +36,7 @@ namespace ConsorcioOnline.Controllers
                 retUser.CNPJ = user.cd_cnpj;
                 retUser.IE = user.cd_ie;
                 retUser.Blocked = user.bit_bloqueio;
+                retUser.Telefone = user.de_telefone;
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, retUser);
 
@@ -64,6 +65,7 @@ namespace ConsorcioOnline.Controllers
                 newUser.cd_cpf = value.CPF;
                 newUser.cd_cnpj = value.CNPJ;
                 newUser.cd_ie = value.IE;
+                newUser.de_telefone = value.Telefone;
 
                 newUser = CRUD.insertUser(newUser);
                 value.Id = newUser.id_user;
@@ -77,7 +79,7 @@ namespace ConsorcioOnline.Controllers
         }
 
         // PUT: api/Users/5
-        [Route("api/users/{id}")]
+        [Route("{id}")]
         [HttpPut]
         public HttpResponseMessage Put(string id, [FromBody]Users value)
         {
@@ -87,12 +89,14 @@ namespace ConsorcioOnline.Controllers
             try
             {
                 upUser.id_user = id;
+                upUser.de_username = value.UserName;
                 upUser.nm_user = value.Nome;
                 upUser.nm_apelido = value.Apelido;
                 upUser.cd_fisjur = value.FisJur;
                 upUser.cd_cpf = value.CPF;
                 upUser.cd_cnpj = value.CNPJ;
                 upUser.cd_ie = value.IE;
+                upUser.de_telefone = value.Telefone;
 
                 CRUD.updateUser(upUser);
 
@@ -107,7 +111,7 @@ namespace ConsorcioOnline.Controllers
         }
 
         // DELETE: api/Users/5
-        [Route("api/users/{id}")]
+        [Route("{id}")]
         [HttpDelete]
         public HttpResponseMessage Delete(string id)
         {

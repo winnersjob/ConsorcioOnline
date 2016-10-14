@@ -49,6 +49,23 @@ namespace LibConsorcioOnline
             
         }
 
+        public List<tbFisicaJuridica> readFisicaJuridica()
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    List<tbFisicaJuridica> status = consorcio.tbFisicaJuridica.ToList();
+
+                    return status;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public List<tbStatusProposta> readStatusProposta()
         {
             try
@@ -84,6 +101,7 @@ namespace LibConsorcioOnline
                     user.cd_cnpj = newUser.cd_cnpj;
                     user.cd_cpf = newUser.cd_cpf;
                     user.cd_ie = newUser.cd_ie;
+                    user.de_telefone = newUser.de_telefone;
                     user.bit_bloqueio = 0;
 
                     consorcio.tbUsers.Add(user);
@@ -118,6 +136,8 @@ namespace LibConsorcioOnline
                     user.cd_cpf = upUser.cd_cpf;
                     user.cd_ie = upUser.cd_ie;
                     user.bit_bloqueio = upUser.bit_bloqueio;
+                    user.de_username = upUser.de_username;
+                    user.de_telefone = upUser.de_telefone;
 
                     consorcio.SaveChanges();
                     

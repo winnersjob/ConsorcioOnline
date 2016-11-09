@@ -66,6 +66,40 @@ namespace LibConsorcioOnline
             }
         }
 
+        public List<tbAdmConsorcio> readAdmConsorcio()
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    List<tbAdmConsorcio> admconsorcio = consorcio.tbAdmConsorcio.ToList();
+
+                    return admconsorcio;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<tbTipoConsorcio> readTipoConsorcio()
+        {
+            try
+            {
+                using (dbConsorcioEntities consorcio = new dbConsorcioEntities())
+                {
+                    List<tbTipoConsorcio> tipoconsorcio = consorcio.tbTipoConsorcio.ToList();
+
+                    return tipoconsorcio;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public List<tbStatusProposta> readStatusProposta()
         {
             try

@@ -80,9 +80,10 @@
         <dd>
             @Html.Label(Html.DisplayFor(model => model.Blocked).ToString() == "0" ? "Não" : "Sim")
         </dd>
-
+        <p style="height:3.5px">&nbsp;</p>
+        <dd>
+            @Html.ActionLink("EDITAR", "Edit", "UsersMVC", new { id = Session["LoginUser"] }, new { @class = "btn btn-default" })
+        </dd>    
     </dl>
-    <div class="form-group">
-        @Html.ActionLink("EDITAR","Edit","UsersMVC", new { id = Session["LoginUser"] }, new { @class="btn-success"})
-    </div>    
+   
 </div>

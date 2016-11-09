@@ -15,6 +15,47 @@ namespace ConsorcioOnline.Controllers
     public class CartaCreditoMVCController : Controller
     {
 
+        private List<AdmConsorcio> ReadAdmConsorcio()
+        {
+            List<AdmConsorcio> admconsorcio = new List<AdmConsorcio>();
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLAdmConsorcio"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                admconsorcio = (List<AdmConsorcio>)formatter.JSONtoClass(sr.ReadToEnd(), new List<AdmConsorcio>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index", "Home", null);
+            }
+
+            return admconsorcio;
+        }
+
+        private List<TipoConsorcio> ReadTipoConsorcio()
+        {
+
+        }
         // GET: CartaCreditoMVC
         public ActionResult Index(string id = "")
         {

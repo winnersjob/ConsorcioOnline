@@ -54,7 +54,39 @@ namespace ConsorcioOnline.Controllers
 
         private List<TipoConsorcio> ReadTipoConsorcio()
         {
+            List<TipoConsorcio> tipoconsorcio = new List<TipoConsorcio>();
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
 
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLTipoConsorcio"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                tipoconsorcio = (List<TipoConsorcio>)formatter.JSONtoClass(sr.ReadToEnd(), new List<TipoConsorcio>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index", "Home", null);
+            }
+
+            return tipoconsorcio;
         }
         // GET: CartaCreditoMVC
         public ActionResult Index(string id = "")
@@ -140,6 +172,9 @@ namespace ConsorcioOnline.Controllers
         // GET: CartaCreditoMVC/Create
         public ActionResult Create()
         {
+            ViewData["AdmConsorcio"] = ReadAdmConsorcio();
+            ViewData["TipoConsorcio"] = ReadTipoConsorcio();
+
             return View();
         }
 

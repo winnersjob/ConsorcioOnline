@@ -88,6 +88,126 @@ namespace ConsorcioOnline.Controllers
 
             return tipoconsorcio;
         }
+
+        private List<StatusCarta> ReadStatusCarta()
+        {
+            List<StatusCarta> statuscarta = new List<StatusCarta>();
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLStatusCarta"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                statuscarta = (List<StatusCarta>)formatter.JSONtoClass(sr.ReadToEnd(), new List<StatusCarta>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index", "Home", null);
+            }
+
+            return statuscarta;
+        }
+
+        private Vendedor ReadVendedor()
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            Vendedor vendedor = new Vendedor();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLVendedor"], "/", Session["LoginUser"]));
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                vendedor = (Vendedor)formatter.JSONtoClass(sr.ReadToEnd(), new Vendedor());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return vendedor;
+
+        }
+
+        private void InserirCarta(CartaCredito cartaCredito)
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamWriter sw;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            Vendedor vendedor = new Vendedor();
+            string strJSON = "";
+
+            try
+            {
+                vendedor = ReadVendedor();
+
+                cartaCredito.IdVendedor = vendedor.Id;
+                cartaCredito.StatusCarta = (int)CartaCredito.enStatusCarta.Em_Analise;
+
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLCarta"]);
+
+                strJSON = formatter.ClasstoJSON(cartaCredito);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "POST";
+                request.KeepAlive = false;
+
+                sw = new StreamWriter(request.GetRequestStream());
+                sw.Write(strJSON);
+                sw.Flush();
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
         // GET: CartaCreditoMVC
         public ActionResult Index(string id = "")
         {
@@ -160,6 +280,10 @@ namespace ConsorcioOnline.Controllers
 
                 carta = (CartaCredito)formatter.JSONtoClass(sr.ReadToEnd(), new CartaCredito());
 
+                carta.AdmConsorcios = ReadAdmConsorcio();
+                carta.TipoConsorcios = ReadTipoConsorcio();
+                carta.StatusCartas = ReadStatusCarta();
+
                 return View(carta);
             }
             catch(Exception ex)
@@ -185,58 +309,19 @@ namespace ConsorcioOnline.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AdmConsorcio,TipoConsorcio,Cidade,UF,ValorCredito,ValorEntrada,QtdParcelas,ValorParcela,SaldoCarta,Indexador,Honorarios,TaxaJuros")] CartaCredito cartaCredito)
         {
-            HttpWebRequest request;
-            HttpWebResponse response;
-            StreamReader sr;
-            StreamWriter sw;            
-            clsJSONFormatter formatter = new clsJSONFormatter();
-            Vendedor vendedor = new Vendedor();
-            string strJSON = "";
 
             if (ModelState.IsValid)
             {
 
-                request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLVendedor"], "/", Session["LoginUser"]));
-
-                request.ContentType = "application/json";
-                request.Accept = "application/json";
-                request.Method = "GET";
-                request.KeepAlive = false;
-
-                response = (HttpWebResponse)request.GetResponse();
-
-                sr = new StreamReader(response.GetResponseStream());
-
-                vendedor = (Vendedor)formatter.JSONtoClass(sr.ReadToEnd(), new Vendedor());
-
-                cartaCredito.IdVendedor = vendedor.Id;
-                cartaCredito.StatusCarta = (int)CartaCredito.enStatusCarta.Em_Analise;
-
-                request.Abort();
-                response.Close();
-                response.Dispose();
-                sr.Close();
-                sr.Dispose();
-
-                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLCarta"]);
-
-                strJSON = formatter.ClasstoJSON(cartaCredito);
-
-                request.ContentType = "application/json";
-                request.Accept = "application/json";
-                request.Method = "POST";
-                request.KeepAlive = false;
-
-                sw = new StreamWriter(request.GetRequestStream());
-                sw.Write(strJSON);
-                sw.Flush();
-
-                response = (HttpWebResponse)request.GetResponse();
+                InserirCarta(cartaCredito);
 
                 return RedirectToAction("Index","CartaCreditoMVC", new { id = Session["LoginUser"].ToString() });
             }
 
-            return RedirectToAction("Home", "Index");
+            ViewData["AdmConsorcio"] = ReadAdmConsorcio();
+            ViewData["TipoConsorcio"] = ReadTipoConsorcio();
+
+            return View();
         }
 
         // GET: CartaCreditoMVC/Edit/5
@@ -262,6 +347,10 @@ namespace ConsorcioOnline.Controllers
                 sr = new StreamReader(response.GetResponseStream());
 
                 carta = (CartaCredito)formatter.JSONtoClass(sr.ReadToEnd(), new CartaCredito());
+
+                carta.AdmConsorcios = ReadAdmConsorcio();
+                carta.TipoConsorcios = ReadTipoConsorcio();
+                carta.StatusCartas = ReadStatusCarta();
 
                 return View(carta);
             }
@@ -306,6 +395,11 @@ namespace ConsorcioOnline.Controllers
 
                 return RedirectToAction("Index");
             }
+
+            cartaCredito.AdmConsorcios = ReadAdmConsorcio();
+            cartaCredito.TipoConsorcios = ReadTipoConsorcio();
+            cartaCredito.StatusCartas = ReadStatusCarta();
+
             return View(cartaCredito);
         }
 

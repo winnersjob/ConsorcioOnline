@@ -18,7 +18,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AdmConsorcio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("AdmConsorcio", new SelectList((IEnumerable<ConsorcioOnline.Models.AdmConsorcio>)ViewData["AdmConsorcio"], "Id", "Nome"), new { @class = "form-control" })            
+                @Html.DropDownList("AdmConsorcio", new SelectList((IEnumerable<ConsorcioOnline.Models.AdmConsorcio>)ViewData["AdmConsorcio"], "Id", "Nome"),"Selecione uma Opção",new { @class = "form-control" })            
                 @Html.ValidationMessageFor(model => model.AdmConsorcio, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoConsorcio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TipoConsorcio", new SelectList((IEnumerable<ConsorcioOnline.Models.TipoConsorcio>)ViewData["TipoConsorcio"], "Id", "Nome"), new { @class = "form-control" })            
+                @Html.DropDownList("TipoConsorcio", new SelectList((IEnumerable<ConsorcioOnline.Models.TipoConsorcio>)ViewData["TipoConsorcio"], "Id", "Nome"), "Selecione uma Opção", new { @class = "form-control" })            
                 @Html.ValidationMessageFor(model => model.TipoConsorcio, "", new { @class = "text-danger" })
             </div>
         </div>

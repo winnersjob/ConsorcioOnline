@@ -19,7 +19,7 @@ namespace ConsorcioOnline.Controllers
             List<tbAdmConsorcio> readadmconsorcio = new List<tbAdmConsorcio>();
             clsCRUDConsorcio CRUD = new clsCRUDConsorcio();
             List<AdmConsorcio> listadmconsorcio = new List<AdmConsorcio>();
-
+            
             try
             {
                 readadmconsorcio = CRUD.readAdmConsorcio();
@@ -28,15 +28,16 @@ namespace ConsorcioOnline.Controllers
                 {
                     for (int i = 0; i < readadmconsorcio.Count; i++)
                     {
-                        AdmConsorcio status = new AdmConsorcio();
+                        AdmConsorcio admcons = new AdmConsorcio();
 
-                        status.Id = readadmconsorcio[i].cd_admconsorcio;
-                        status.Nome = readadmconsorcio[i].nm_admconsorcio;
+                        admcons.Id = readadmconsorcio[i].cd_admconsorcio;
+                        admcons.Nome = readadmconsorcio[i].nm_admconsorcio;
 
-                        listadmconsorcio.Add(status);
+                        listadmconsorcio.Add(admcons);
 
-                        status = null;
-                    }
+                        admcons = null;
+                    }                  
+
                 }
 
                 return this.Request.CreateResponse(HttpStatusCode.OK, listadmconsorcio);

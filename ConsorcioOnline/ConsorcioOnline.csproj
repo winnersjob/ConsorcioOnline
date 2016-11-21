@@ -364,6 +364,7 @@
     <Content Include="Views\PropostaCartaMVC\Edit.cshtml" />
     <Content Include="Views\Admin\PropostasCarta.cshtml" />
     <Content Include="Views\Admin\CartasCredito.cshtml" />
+    <Content Include="Views\CartaCreditoMVC\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

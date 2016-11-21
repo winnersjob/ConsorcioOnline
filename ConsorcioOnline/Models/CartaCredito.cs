@@ -66,6 +66,10 @@ namespace ConsorcioOnline.Models
         [DataMember]
         [Required]
         public decimal TaxaJuros { get; set; }
+
+        public List<AdmConsorcio> AdmConsorcios { get; set; }
+        public List<TipoConsorcio> TipoConsorcios { get; set; }
+        public List<StatusCarta> StatusCartas { get; set; }
         
     }
 }

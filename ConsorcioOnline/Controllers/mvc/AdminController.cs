@@ -11,7 +11,157 @@ using System.Configuration;
 namespace ConsorcioOnline.Controllers.mvc
 {
     public class AdminController : Controller
-    {       
+    {
+        private List<AdmConsorcio> ReadAdmConsorcio()
+        {
+            List<AdmConsorcio> admconsorcio = new List<AdmConsorcio>();
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLAdmConsorcio"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                admconsorcio = (List<AdmConsorcio>)formatter.JSONtoClass(sr.ReadToEnd(), new List<AdmConsorcio>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index", "Home", null);
+            }
+
+            return admconsorcio;
+        }
+
+        private List<TipoConsorcio> ReadTipoConsorcio()
+        {
+            List<TipoConsorcio> tipoconsorcio = new List<TipoConsorcio>();
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLTipoConsorcio"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                tipoconsorcio = (List<TipoConsorcio>)formatter.JSONtoClass(sr.ReadToEnd(), new List<TipoConsorcio>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index", "Home", null);
+            }
+
+            return tipoconsorcio;
+        }
+
+        private List<StatusCarta> ReadStatusCarta()
+        {
+            List<StatusCarta> statuscarta = new List<StatusCarta>();
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(ConfigurationSettings.AppSettings["URLStatusCarta"]);
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                statuscarta = (List<StatusCarta>)formatter.JSONtoClass(sr.ReadToEnd(), new List<StatusCarta>());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+            }
+            catch (Exception ex)
+            {
+                RedirectToAction("Index", "Home", null);
+            }
+
+            return statuscarta;
+        }
+
+        private Vendedor ReadVendedor()
+        {
+            HttpWebRequest request;
+            HttpWebResponse response;
+            StreamReader sr;
+            clsJSONFormatter formatter = new clsJSONFormatter();
+            Vendedor vendedor = new Vendedor();
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(String.Concat(ConfigurationSettings.AppSettings["URLVendedor"], "/", Session["LoginUser"]));
+
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.Method = "GET";
+                request.KeepAlive = false;
+
+                response = (HttpWebResponse)request.GetResponse();
+
+                sr = new StreamReader(response.GetResponseStream());
+
+                vendedor = (Vendedor)formatter.JSONtoClass(sr.ReadToEnd(), new Vendedor());
+
+                request.Abort();
+                response.Close();
+                response.Dispose();
+                sr.Close();
+                sr.Dispose();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return vendedor;
+
+        }
+
         public ActionResult CartasCredito()
         {
             HttpWebRequest request;
@@ -23,6 +173,7 @@ namespace ConsorcioOnline.Controllers.mvc
             List<StatusCarta> status = new List<StatusCarta>();
             List<CartaCredito> carta = new List<CartaCredito>();
             string strJSON = "";
+            int count = 0;
 
             try
             {
@@ -71,6 +222,14 @@ namespace ConsorcioOnline.Controllers.mvc
                 sr = new StreamReader(response.GetResponseStream());
 
                 carta = (List<CartaCredito>)formatter.JSONtoClass(sr.ReadToEnd(), new List<CartaCredito>());
+
+                for (count = 0; count < carta.Count; count++)
+                {
+                    carta[count].AdmConsorcios = ReadAdmConsorcio();
+                    carta[count].TipoConsorcios = ReadTipoConsorcio();
+                    carta[count].StatusCartas = ReadStatusCarta();
+                    carta[count].vendedor = ReadVendedor();
+                }
 
                 return View(carta);
             }

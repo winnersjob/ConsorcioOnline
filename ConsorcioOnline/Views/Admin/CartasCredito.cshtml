@@ -72,13 +72,13 @@
                 @Html.DisplayFor(modelItem => item.IdVendedor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AdmConsorcio)
+                @item.AdmConsorcios.Find(a => a.Id == item.AdmConsorcio).Nome
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TipoConsorcio)
+                @item.TipoConsorcios.Find(a => a.Id == item.TipoConsorcio).Nome
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.StatusCarta)
+                @item.StatusCartas.Find(a => a.Id == item.StatusCarta).Nome
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Cidade)

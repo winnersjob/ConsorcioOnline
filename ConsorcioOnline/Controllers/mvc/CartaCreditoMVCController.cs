@@ -219,6 +219,7 @@ namespace ConsorcioOnline.Controllers
             string strJSON = "";
             clsJSONFormatter formatter = new clsJSONFormatter();
             List<CartaCredito> carta = new List<CartaCredito>();
+            int count = 0;
 
             if (Session["Filters"] != null || id != "")
             {

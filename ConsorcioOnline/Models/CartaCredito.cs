@@ -70,6 +70,7 @@ namespace ConsorcioOnline.Models
         public List<AdmConsorcio> AdmConsorcios { get; set; }
         public List<TipoConsorcio> TipoConsorcios { get; set; }
         public List<StatusCarta> StatusCartas { get; set; }
+        public Vendedor vendedor { get; set; }
         
     }
 }
